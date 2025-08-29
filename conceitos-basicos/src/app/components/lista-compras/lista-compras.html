@@ -24,7 +24,7 @@
         </td>
         <td><input type="checkbox"  [checked]="elemento.comprado" (click)="riscarItem(elemento)" /></td>
         <td>
-          <button >Remover</button>
+          <button (click)="removerItem(elemento)">Remover</button>
         </td>
       </tr>
     }@empty {

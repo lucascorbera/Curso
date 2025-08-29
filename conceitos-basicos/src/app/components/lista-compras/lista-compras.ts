@@ -30,4 +30,9 @@ export class ListaCompras {
     riscarItem(elemento: ItemLista) {
       elemento.comprado = !elemento.comprado;
     }
+
+    removerItem(elemento: ItemLista) {
+      this.listaItems = this.listaItems.filter(item => item.id !== elemento.id);
+      this.listaItems.forEach((item, index) => item.id = index + 1);
+    }
 }
