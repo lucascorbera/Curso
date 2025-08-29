@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="form-box">
+    <form #frm="ngForm" (ngSubmit)="somar()">
+      <label  for="numero1">Digite um número:</label>
+      <input type="number" id="numero1" [(ngModel)]="numero1" name="numero1" placeholder="Digite um número" />
+      <label  for="numero2">Digite um número:</label>
+      <input type="number" id="numero2" [(ngModel)]="numero2" name="numero2" placeholder="Digite um número" />
+      <!--<button type="button" (click)="somar()">Somar Button click</button>-->
+      <button type="submit" >Somar Button submit</button>
+    </form>
+    <div class="result-display">
+
+      @if (resultado) {
+        <p>Resultado: <span id="resultado">{{ resultado }}</span></p>
+      }@else {
+        <p *ngIf="!resultado">Clique em Somar</p>
+      }
+    </div>
+  </div>
+</div>
