@@ -35,4 +35,7 @@ export class ListaCompras {
       this.listaItems = this.listaItems.filter(item => item.id !== elemento.id);
       this.listaItems.forEach((item, index) => item.id = index + 1);
     }
+    limpaLista() {
+      this.listaItems = [];
+    }
 }
