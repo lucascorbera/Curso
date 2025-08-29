@@ -5,6 +5,7 @@
   <form #frm="ngForm" class="add-item-form" (ngSubmit)="adicionarItem()">
     <input type="text" id="novoItem" placeholder="Adicionar item" ngModel name="novoItem" required [(ngModel)]="novoItem" />
     <button type="submit">Adicionar</button>
+    <button type="button" class="limpar" (click)="limpaLista()">Limpar</button>
   </form>
   <table>
     <thead>
