@@ -1,7 +1,11 @@
 <mat-toolbar color="primary">
   <span>Cadastro de Clientes</span>
   <span class="spacer"></span>
-  <a>Formulario</a>
-  <a>Consultar</a>
+  <a routerLink="cadastro">
+    <mat-icon>add_task</mat-icon>
+    Cadastros</a>
+  <a routerLink="consulta">
+    <mat-icon>search</mat-icon>
+    Consultar</a>
 </mat-toolbar>
 <router-outlet></router-outlet>
