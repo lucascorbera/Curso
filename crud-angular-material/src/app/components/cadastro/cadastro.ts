@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { Cliente } from './Cliente';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { ClientesService } from '../../services/clientesService';
+import { ClientesService } from '../../services/ClientesService';
 
 @Component({
   selector: 'app-cadastro',
