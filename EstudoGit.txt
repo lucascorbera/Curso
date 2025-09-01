@@ -1,0 +1,127 @@
+Sobre o git para estudo e lembrar. 
+
+
+git add . : usado sempre para adc os arquivos que tiveram alteração, executar sempre antes de commit
+git commit -m " descrição" : Para salvar as alterações realizadas no campo git add .
+git push origin main : Envia as alteração para o servidor do git
+git pull origin main : busca os dados do servidor do git 
+
+---------- outras funcões importante do git ------------
+git init: para iniciar um repositorio na sua maquina local. 
+
+
+📌 Guia de Mão Git — Comandos Essenciais
+1️⃣ Configuração inicial
+# Configurar usuário e email (só precisa uma vez)
+git config --global user.name "Seu Nome"
+git config --global user.email "seuemail@email.com"
+
+# Ver configurações
+git config --list
+
+2️⃣ Criar ou clonar repositório
+# Iniciar um novo repositório
+git init
+
+# Clonar um repositório existente
+git clone https://github.com/usuario/repositorio.git
+
+3️⃣ Status e histórico
+# Verificar status do repositório
+git status
+
+# Histórico de commits (simplificado)
+git log --oneline --graph --decorate
+
+# Histórico de um arquivo específico
+git log -- nome-do-arquivo
+
+4️⃣ Trabalhando com arquivos
+# Adicionar todos os arquivos modificados
+git add .
+
+# Adicionar um arquivo específico
+git add caminho/arquivo.txt
+
+# Commit com mensagem
+git commit -m "Mensagem do commit"
+
+# Commitando tudo de uma vez (sem add separado)
+git commit -am "Mensagem do commit"
+
+5️⃣ Enviar e receber alterações
+# Enviar commits locais para o GitHub
+git push origin main
+
+# Baixar alterações do GitHub e mesclar
+git pull origin main
+
+# Baixar alterações e reescrever histórico (mais limpo)
+git pull origin main --rebase
+
+6️⃣ Trabalhando com branches
+# Criar nova branch
+git branch minha-feature
+
+# Trocar de branch
+git checkout minha-feature
+
+# Criar e trocar ao mesmo tempo
+git checkout -b minha-feature
+
+# Listar branches
+git branch
+
+# Mesclar branch na main
+git checkout main
+git merge minha-feature
+
+# Deletar branch local
+git branch -d minha-feature
+
+7️⃣ Desfazer alterações
+# Restaurar arquivo para o último commit
+git restore arquivo.txt
+
+# Resetar todos os arquivos para o último commit
+git restore .
+
+# Voltar ao estado de 1 commit atrás (sem apagar histórico)
+git revert HEAD
+
+# Resetar branch para um commit específico (perigoso!)
+git reset --hard <hash-do-commit>
+
+8️⃣ Resolver conflitos
+# Durante merge ou rebase, depois de resolver manualmente
+git add arquivo.txt
+git rebase --continue   # ou git merge --continue
+
+9️⃣ Stash (guardar alterações temporariamente)
+# Guardar alterações sem commit
+git stash
+
+# Listar stashes
+git stash list
+
+# Restaurar último stash
+git stash pop
+
+🔟 Dicas úteis
+# Ver diferenças de código
+git diff
+
+# Ver diferenças de código já staged (depois do add)
+git diff --staged
+
+# Remover arquivo do repositório, mas manter local
+git rm --cached arquivo.txt
+
+
+✅ Fluxo de trabalho recomendado (branch única):
+
+git status                # Verifica o que mudou
+git add .                 # Adiciona alterações
+git commit -m "mensagem"  # Salva alterações
+git pull origin main --rebase  # Puxa remoto antes de enviar
+git push origin main      # Sobe alterações

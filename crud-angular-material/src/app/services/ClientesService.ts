@@ -22,7 +22,7 @@ export class ClientesService {
       return cliente;
     }
 
-    // se o repositorio nao exsitir eu faço um set de um cliente fazio para criar o repositorio.
+    // se o repositorio nao exsitir eu faço um set de um cliente fazio para criar o repositorio. agora
     const cliente : Cliente [] = [];
     localStorage.setItem(ClientesService.REPO_CLIENTE, JSON.stringify(cliente));
     return cliente;
