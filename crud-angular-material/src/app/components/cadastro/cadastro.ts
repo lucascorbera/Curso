@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { Cliente } from './Cliente';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { ClientesService } from '../../services/clientesService';
+
 @Component({
   selector: 'app-cadastro',
   imports: [
@@ -25,8 +27,14 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 })
 export class Cadastro {
 
+
+
   cliente: Cliente = Cliente.newCliente();
+
+
+  constructor(private service: ClientesService) { }
+
   Salvar() {
-    console.log(this.cliente);
+    this.service.salvar(this.cliente);
   }
 }
