@@ -26,8 +26,6 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 export class Cadastro {
 
   cliente: Cliente = Cliente.newCliente();
-
-
   Salvar() {
     console.log(this.cliente);
   }
