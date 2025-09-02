@@ -84,3 +84,70 @@ Componentes em pastas: components/, services/, modules/
 Ctrl + P no VS Code → abrir arquivos rápido
 
 Comentários curtos ajudam na leitura diária
+
+
+
+
+🟢 Variáveis em Angular/TypeScript – Guia Rápido Visual
+🔹 let – Variável Mutável
+
+🟢 Escopo: bloco {}
+
+🔄 Pode mudar de valor
+
+let nome = 'Lucas';
+nome = 'Ana'; // ✅ ok
+
+🔹 const – Variável Imutável
+
+🟡 Escopo: bloco {}
+
+❗ Valor não muda (objetos/arrays podem alterar conteúdo)
+
+const PI = 3.14;
+const pessoa = { nome: 'Lucas' };
+pessoa.nome = 'Ana'; // ✅ ok
+// PI = 3.15; // ❌ erro
+
+🔹 var – Legado
+
+🔴 Escopo: função
+
+⚠️ Evitar no TypeScript moderno
+
+var idade = 20;
+idade = 21; // ✅ ok
+
+🔹 static – Variável de Classe
+
+🟣 Pertence à classe, não à instância
+
+🔑 Acessar sem criar objeto
+
+class MathHelper {
+  static PI = 3.14;
+}
+console.log(MathHelper.PI); // 3.14
+
+🔹 Tipagem Explícita
+
+💻 Define tipo da variável
+
+let idade: number = 25;
+const nome: string = 'Lucas';
+let ativo: boolean = true;
+let lista: string[] = ['A', 'B'];
+
+🔹 Variáveis em Classe Angular
+@Component({ selector: 'app-root', templateUrl: './app.component.html' })
+export class AppComponent {
+  titulo: string = 'Meu App'; // 🟢 instância
+  static contador: number = 0; // 🟣 classe
+}
+
+🔹 Resumo Rápido
+Palavra-chave	Mutável	Escopo	Observações
+let	✅ Sim	Bloco {}	Padrão moderno
+const	❌ Não	Bloco {}	Imutável (objetos/arrays podem mudar)
+var	✅ Sim	Função	Evitar no TypeScript moderno
+static	✅ Sim	Classe	Acessada sem instância da classe

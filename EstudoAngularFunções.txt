@@ -1,0 +1,169 @@
+🟢 Guia Rápido: Funções & Métodos TS/Angular
+1️⃣ Array de Objetos
+obterClientes(): Cliente[] {
+  return [ new Cliente(1, 'Lucas'), new Cliente(2, 'Ana') ];
+}
+
+
+Retorna uma lista de objetos
+
+Sintaxe: (): Tipo[]
+
+2️⃣ Objeto Único
+obterClientePorId(id: number): Cliente {
+  return new Cliente(id, 'Lucas');
+}
+
+
+Retorna apenas um objeto
+
+Sintaxe: (): Tipo
+
+3️⃣ Tipos Primitivos
+obterNome(): string { return 'Lucas'; }
+obterIdade(): number { return 25; }
+isAtivo(): boolean { return true; }
+
+4️⃣ Sem Retorno (void)
+imprimirCliente(cliente: Cliente): void {
+  console.log(cliente.nome);
+}
+
+
+Executa ação, não retorna nada
+
+5️⃣ Estática (static)
+class ClienteHelper {
+  static criarClientePadrao(): Cliente {
+    return new Cliente(0, 'Cliente Padrão');
+  }
+}
+
+
+Usar: ClienteHelper.criarClientePadrao()
+
+Não precisa instanciar a classe
+
+6️⃣ Parâmetros Opcionais
+saudar(nome?: string): string {
+  return `Olá ${nome ?? 'Visitante'}`;
+}
+
+
+? → opcional
+
+?? → valor padrão se vazio
+
+7️⃣ Parâmetro Padrão
+multiplicar(valor: number, fator: number = 2): number {
+  return valor * fator;
+}
+
+
+Se não passar fator, usa 2
+
+8️⃣ Parâmetro Rest
+somar(...numeros: number[]): number {
+  return numeros.reduce((a,b)=>a+b,0);
+}
+
+
+Aceita qualquer quantidade de números
+
+⚡ Resumo Visual
+Função	Sintaxe	Retorno/Exemplo
+Array de objetos	(): Cliente[]	[new Cliente(...)]
+Objeto único	(): Cliente	new Cliente(...)
+Primitivo	(): string/number/boolean	'Lucas', 25, true
+Sem retorno	(): void	console.log(...)
+Estática	static (): Cliente	ClienteHelper.criarClientePadrao()
+Opcional	(nome?: string)	saudar()
+Padrão	(fator = 2)	multiplicar(5) → 10
+Rest	(...numeros: number[])	somar(1,2,3) → 6
+
+
+Perfeito! Vamos detalhar o item 8 – Parâmetro Rest (...) com exemplos e variações para ficar realmente claro.
+
+🟢 Parâmetro Rest em TypeScript/Angular
+
+O parâmetro rest permite que uma função receba uma quantidade indefinida de argumentos como um array. É indicado quando você não sabe quantos valores o usuário irá passar.
+
+1️⃣ Sintaxe Básica
+function somar(...numeros: number[]): number {
+  return numeros.reduce((total, n) => total + n, 0);
+}
+
+console.log(somar(1, 2, 3));  // 6
+console.log(somar(5, 10));    // 15
+
+
+...numeros → agrupa todos os argumentos passados em um array chamado numeros.
+
+numeros: number[] → define que todos os elementos do array são do tipo number.
+
+reduce → soma todos os valores do array.
+
+2️⃣ Combinação com Parâmetros Fixos
+
+Você pode ter parâmetros obrigatórios antes do rest:
+
+function criarMensagem(prefixo: string, ...mensagens: string[]): string {
+  return `${prefixo}: ${mensagens.join(', ')}`;
+}
+
+console.log(criarMensagem('Aviso', 'Mensagem 1', 'Mensagem 2'));
+// Aviso: Mensagem 1, Mensagem 2
+
+
+prefixo é obrigatório
+
+...mensagens captura qualquer número de mensagens extras
+
+3️⃣ Parâmetro Rest com Tipos Mistos
+
+Embora geralmente usemos um tipo uniforme, você pode usar tuplas para tipos mistos:
+
+function infoUsuario(nome: string, ...dados: (string | number)[]): void {
+  console.log(`Nome: ${nome}, Dados: ${dados.join(', ')}`);
+}
+
+infoUsuario('Lucas', 25, 'Angular', 100);  
+// Nome: Lucas, Dados: 25, Angular, 100
+
+
+dados pode conter string ou number
+
+Útil para funções flexíveis
+
+4️⃣ Restrições Importantes
+
+O rest deve ser o último parâmetro da função.
+
+function errado(...nums: number[], extra: number) {} 
+// ❌ ERRO: parâmetro extra após rest
+
+
+Você sempre recebe um array dentro da função, mesmo que passe apenas 1 valor.
+
+5️⃣ Exemplo Prático Angular
+
+Imagine um serviço que soma valores enviados pelo usuário:
+
+@Injectable({providedIn: 'root'})
+export class CalculadoraService {
+  somarValores(...valores: number[]): number {
+    return valores.reduce((total, n) => total + n, 0);
+  }
+}
+
+
+Uso no componente:
+
+@Component({...})
+export class AppComponent {
+  constructor(private calc: CalculadoraService) {}
+
+  mostrarSoma() {
+    console.log(this.calc.somarValores(10, 20, 30, 40)); // 100
+  }
+}
