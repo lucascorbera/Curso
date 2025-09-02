@@ -1,11 +1,11 @@
 import { v4 as uuid } from 'uuid';
 
 export class Cliente {
-  id?: string;
-  nome?: string;
-  email?: string;
-  cpf?: string;
-  dataNascimento?: Date;
+  id?: string = '';
+  nome?: string = '';
+  email?: string = '';
+  cpf?: string = '';
+  dataNascimento?: Date = new Date();
 
   constructor(id?: string, nome?: string, email?: string, cpf?: string, dataNascimento?: Date) {
     this.id = id;
@@ -17,7 +17,10 @@ export class Cliente {
 
   static newCliente() {
     const cliente = new Cliente();
-    cliente.id = uuid();
     return cliente;
+  }
+
+  gerarNovoId() {
+    this.id = uuid();
   }
 }

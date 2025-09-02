@@ -9,10 +9,12 @@ export class ClientesService {
 
   salvar(cliente : Cliente) {
     // aqui eu estou pegando meu local storage
+    cliente.gerarNovoId();
     const storage = this.obterClientes();
     //
     storage.push(cliente);
     localStorage.setItem(ClientesService.REPO_CLIENTE, JSON.stringify(storage));
+
   }
 
   static REPO_CLIENTE = "_CLIENTE";
