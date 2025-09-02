@@ -120,3 +120,89 @@ mat-elevation-z<number> → sombra do componente
 color="primary|accent|warn" → tema
 
 appearance="fill|outline|standard" → inputs
+
+
+
+🎨 Guia Visual Angular Material + Flex Layout
+1️⃣ Container Flexível
+
+Define a direção dos itens:
+
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxFlex="30%">Item 1</div>
+  <div fxFlex="30%">Item 2</div>
+  <div fxFlex="30%">Item 3</div>
+</div>
+
+Atributo	Função
+fxLayout	Direção: row (linha) / column (coluna)
+fxLayoutAlign	Alinhamento: main-axis cross-axis
+fxFlex	Largura/altura do item
+2️⃣ Cartões (Cards) Material
+<mat-card fxFlex="30%" fxLayout="column" fxLayoutAlign="start stretch">
+  <mat-card-header>
+    <mat-card-title>Cliente</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    Informações do cliente aqui
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Editar</button>
+    <button mat-button>Deletar</button>
+  </mat-card-actions>
+</mat-card>
+
+Componente	Função
+mat-card	Card básico
+mat-card-header	Cabeçalho do card
+mat-card-title	Título
+mat-card-content	Conteúdo do card
+mat-card-actions	Botões ou ações do card
+3️⃣ Inputs e Botões
+<mat-form-field fxFlex="100%">
+  <mat-label>Nome</mat-label>
+  <input matInput placeholder="Digite seu nome">
+</mat-form-field>
+
+<button mat-raised-button color="primary">Salvar</button>
+
+
+mat-form-field → campo de formulário estilizado
+
+matInput → input dentro do Material
+
+mat-raised-button → botão elevado
+
+color="primary" → cores predefinidas do Material (primary, accent, warn)
+
+4️⃣ Responsividade
+<div fxLayout="row" fxLayoutGap="16px" fxLayout.xs="column">
+  <div fxFlex="50%" fxFlex.xs="100%">Item A</div>
+  <div fxFlex="50%" fxFlex.xs="100%">Item B</div>
+</div>
+
+
+fxLayout.xs="column" → muda layout em telas pequenas
+
+fxFlex.xs="100%" → item ocupa 100% da largura no mobile
+
+fxLayoutGap="16px" → espaçamento entre itens
+
+5️⃣ Exibição condicional
+<div fxShow fxHide.xs>Visível no desktop, oculto no mobile</div>
+
+
+fxShow → mostra o elemento
+
+fxHide.xs → esconde em telas extra pequenas
+
+6️⃣ Resumo visual rápido
+Atributo / Componente	Uso	Exemplo
+fxLayout	Define direção dos itens	row / column
+fxLayoutAlign	Alinhamento horizontal e vertical	space-between center
+fxFlex	Largura ou altura do item	30% / 50% / auto
+fxLayoutGap	Espaçamento entre itens	16px
+fxShow / fxHide	Mostrar ou esconder itens	fxHide.xs
+mat-card	Cartão visual	Card com conteúdo
+mat-form-field	Campo de formulário	Input Material
+mat-raised-button	Botão estilizado	color="primary"
