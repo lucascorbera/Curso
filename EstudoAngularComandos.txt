@@ -1,0 +1,86 @@
+🌟 Guia de Bolso Angular + TypeScript + VS Code 🌟
+1️⃣ Criar Projeto
+🆕 npx ng new nome-do-projeto --style=scss --routing
+
+
+Cria projeto com SCSS e roteamento habilitado
+
+2️⃣ Rodar Projeto
+🚀 npx ng serve --open
+
+
+Servidor dev + abre navegador automaticamente
+
+3️⃣ Gerar Componentes
+🧩 npx ng g c components/ClienteComponent
+📝 npx ng g c components/ClienteComponent --inline-template --inline-style
+
+
+Gera componente normal ou com template e style inline
+
+4️⃣ Gerar Serviços
+⚙️ npx ng g s services/ClienteService
+
+
+Serviço injetável em todo o app
+
+5️⃣ Gerar Módulos
+📦 npx ng g m modules/ClienteModule
+
+
+Modulariza funcionalidades
+
+6️⃣ Rotas Angular
+import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'clientes', component: ClienteComponent },
+];
+
+
+Organize suas rotas aqui
+
+7️⃣ Comandos Úteis
+🗂️ npx ng g r           # Listar rotas
+🔄 npx ng update         # Atualizar dependências
+🏗️ npx ng build --prod    # Build produção
+✅ npx ng test            # Testes unitários
+🧪 npx ng e2e             # Testes end-to-end
+
+8️⃣ VS Code
+💻 code .                # Abrir projeto
+
+
+Ctrl + Shift + P → Paleta de comandos
+
+Alt + Shift + F → Auto-format
+
+Ctrl + / → Comentar/descomentar
+
+9️⃣ TypeScript Rápido
+let nome: string = "Lucas";
+const idade: number = 30;
+
+function soma(a: number, b: number): number {
+  return a + b;
+}
+
+interface Cliente {
+  id: number;
+  nome: string;
+}
+
+
+Tipagem forte + interfaces ajudam a evitar erros
+
+🔟 Dicas de Produtividade
+
+Sempre use ng serve --open para mudanças instantâneas
+
+Componentes em pastas: components/, services/, modules/
+
+Ctrl + P no VS Code → abrir arquivos rápido
+
+Comentários curtos ajudam na leitura diária
