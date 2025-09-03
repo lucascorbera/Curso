@@ -10,7 +10,12 @@
                         <div fxLayout="column" fxFlex="950px">
                             <mat-form-field>
                                 <mat-label> Nome: </mat-label>
-                                <input matInput placeholder="Ex: Lucas" />
+                                <input
+                                    matInput
+                                    placeholder="Ex: Lucas"
+                                    [(ngModel)]="nomeBusca"
+                                    name="nomeBusca"
+                                />
                             </mat-form-field>
                         </div>
                     </div>
@@ -26,13 +31,13 @@
     </div>
 </div>
 
-<div fxLayout="row" fxLayoutAlign="center" class="mt-20">
-    <div fxLayout="column" fxFlex="1000px">
+<div fxLayout="row" fxLayoutAlign="center" class="mt-20 mb-20">
+    <div fxLayout="column" fxFlex="1000px" class="mat-elevation-z8">
         <mat-card appearance="outlined">
             <mat-card-header>
                 <mat-card-title> Resultados da Pesquisa </mat-card-title>
             </mat-card-header>
-            <table mat-table [dataSource]="listaClientes">
+            <table mat-table [dataSource]="ListaClientesData">
                 <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef>ID</th>
                     <td mat-cell *matCellDef="let cliente">{{ cliente.id }}</td>
@@ -56,7 +61,13 @@
                 <tr mat-header-row *matHeaderRowDef="colunasTable"></tr>
                 <tr mat-row *matRowDef="let row; columns: colunasTable"></tr>
             </table>
+            <mat-paginator
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+                aria-label="Select page of periodic elements"
+            >
+            </mat-paginator>
+            <mat-card-footer> Total de registros: {{ listaClientes.length }} </mat-card-footer>
         </mat-card>
-        <div></div>
     </div>
 </div>

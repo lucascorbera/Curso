@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { ClientesService } from '../../services/ClientesService';
 import { Cliente } from '../cadastro/Cliente';
 import { CommonModule } from '@angular/common';
-
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 @Component({
     selector: 'app-consulta',
     imports: [
@@ -21,23 +21,31 @@ import { CommonModule } from '@angular/common';
         MatTableModule,
         MatButtonModule,
         CommonModule,
+        MatPaginatorModule,
     ],
     templateUrl: './consulta.html',
     styleUrl: './consulta.scss',
 })
-export class Consulta {
+export class Consulta implements AfterViewInit {
     listaClientes: Cliente[] = [];
     nomeBusca: string = '';
-    constructor(private serviceConsultar: ClientesService) {}
-
     colunasTable: string[] = ['id', 'nome', 'cpf', 'email', 'dataNascimento'];
-    // esse ngOnInit serve para carergar algum dado na tela antes dela ser axibida como se fosse o onload
+    ListaClientesData = new MatTableDataSource<Cliente>(); // inicializa vazio
+
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+    constructor(private serviceConsultar: ClientesService) {}
     ngOnInit() {
-        console.log('Pasosu aqui assim que eu carreguei ');
         this.listaClientes = this.serviceConsultar.pesquisarCliente('');
+        this.ListaClientesData.data = this.listaClientes; // importante!
     }
 
     pesquisar() {
         this.listaClientes = this.serviceConsultar.pesquisarCliente(this.nomeBusca);
+        this.ListaClientesData.data = this.listaClientes; // atualiza a tabela
+    }
+
+    ngAfterViewInit() {
+        this.ListaClientesData.paginator = this.paginator;
     }
 }
