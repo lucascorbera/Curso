@@ -19,7 +19,15 @@ import {
     MatDialogContent,
     MatDialogRef,
     MatDialogTitle,
+    MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { model, signal } from '@angular/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+export interface InterfaceClienteDialog {
+    idClienteI: string;
+    nameClienteI: string;
+}
 @Component({
     selector: 'app-consulta',
     imports: [
@@ -37,6 +45,9 @@ import {
     styleUrl: './consulta.scss',
 })
 export class Consulta implements AfterViewInit {
+    readonly name = model('');
+    readonly dialog = inject(MatDialog);
+    readonly clienteID = signal('');
     listaClientes: Cliente[] = [];
     nomeBusca: string = '';
     colunasTable: string[] = ['id', 'nome', 'cpf', 'email', 'dataNascimento', 'acao'];
@@ -67,22 +78,40 @@ export class Consulta implements AfterViewInit {
         });
     }
 
-    readonly dialog = inject(MatDialog);
-
-    openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-        this.dialog.open(DialogAnimationsExampleDialog, {
-            width: '500px',
-            enterAnimationDuration,
-            exitAnimationDuration,
+    openDialog(idCliente: string, nameCliente: string): void {
+        const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+            data: { nameClienteI: nameCliente, idClienteI: idCliente },
         });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            console.log('Fechando a janela', result);
+        });
+    }
+
+    confirmDelete(): void {
+        console.log('Delete confirmed for clienteID');
     }
 }
 @Component({
     selector: 'app-consulta',
     templateUrl: './consultaDialog.html',
-    imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        MatButtonModule,
+        MatDialogTitle,
+        MatDialogContent,
+        MatDialogActions,
+        MatDialogClose,
+    ],
 })
-export class DialogAnimationsExampleDialog {
-    readonly dialogRef = inject(MatDialogRef<DialogAnimationsExampleDialog>);
+export class DialogOverviewExampleDialog {
+    readonly dialogRef = inject(MatDialogRef<DialogOverviewExampleDialog>);
+    readonly data = inject<InterfaceClienteDialog>(MAT_DIALOG_DATA);
+    readonly clienteIDAqui = model(this.data.idClienteI);
+
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 }
