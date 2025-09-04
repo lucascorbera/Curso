@@ -1,0 +1,7 @@
+.acoes-cell {
+    // mantém os botões na horizontal
+    gap: 8px; // espaço entre os ícones
+    align-items: center; // centraliza verticalmente
+    white-space: nowrap;
+    // impede quebra de linha
+}

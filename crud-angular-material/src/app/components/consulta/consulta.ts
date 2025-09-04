@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-consulta',
     imports: [
@@ -29,12 +30,12 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 export class Consulta implements AfterViewInit {
     listaClientes: Cliente[] = [];
     nomeBusca: string = '';
-    colunasTable: string[] = ['id', 'nome', 'cpf', 'email', 'dataNascimento'];
+    colunasTable: string[] = ['id', 'nome', 'cpf', 'email', 'dataNascimento', 'acao'];
     ListaClientesData = new MatTableDataSource<Cliente>(); // inicializa vazio
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    constructor(private serviceConsultar: ClientesService) {}
+    constructor(private serviceConsultar: ClientesService, private router: Router) {}
     ngOnInit() {
         this.listaClientes = this.serviceConsultar.pesquisarCliente('');
         this.ListaClientesData.data = this.listaClientes; // importante!
@@ -47,5 +48,13 @@ export class Consulta implements AfterViewInit {
 
     ngAfterViewInit() {
         this.ListaClientesData.paginator = this.paginator;
+    }
+
+    preparaEditar(id: string) {
+        console.log('Editar: ' + id);
+        this.router.navigate(['/cadastro'], {
+            queryParams: { id: id },
+            queryParamsHandling: 'merge',
+        });
     }
 }

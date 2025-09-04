@@ -37,4 +37,10 @@ export class ClientesService {
         localStorage.setItem(ClientesService.REPO_CLIENTE, JSON.stringify(cliente));
         return cliente;
     }
+
+    getClienteById(id: string): Cliente {
+        const clientes = this.obterClientes();
+        const cliente = clientes.find((c) => c.id === id);
+        return cliente ? cliente : Cliente.newCliente();
+    }
 }
