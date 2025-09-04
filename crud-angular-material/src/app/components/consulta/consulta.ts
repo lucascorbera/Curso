@@ -11,6 +11,7 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, inject } from '@angular/core';
 import {
     MatDialog,
     MatDialogActions,
@@ -85,4 +86,3 @@ export class Consulta implements AfterViewInit {
 export class DialogAnimationsExampleDialog {
     readonly dialogRef = inject(MatDialogRef<DialogAnimationsExampleDialog>);
 }
-import { ChangeDetectionStrategy, inject } from '@angular/core';
