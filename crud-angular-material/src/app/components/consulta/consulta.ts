@@ -11,6 +11,14 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
+import {
+    MatDialog,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogRef,
+    MatDialogTitle,
+} from '@angular/material/dialog';
 @Component({
     selector: 'app-consulta',
     imports: [
@@ -57,4 +65,24 @@ export class Consulta implements AfterViewInit {
             queryParamsHandling: 'merge',
         });
     }
+
+    readonly dialog = inject(MatDialog);
+
+    openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+        this.dialog.open(DialogAnimationsExampleDialog, {
+            width: '500px',
+            enterAnimationDuration,
+            exitAnimationDuration,
+        });
+    }
 }
+@Component({
+    selector: 'app-consulta',
+    templateUrl: './consultaDialog.html',
+    imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DialogAnimationsExampleDialog {
+    readonly dialogRef = inject(MatDialogRef<DialogAnimationsExampleDialog>);
+}
+import { ChangeDetectionStrategy, inject } from '@angular/core';

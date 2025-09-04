@@ -43,4 +43,13 @@ export class ClientesService {
         const cliente = clientes.find((c) => c.id === id);
         return cliente ? cliente : Cliente.newCliente();
     }
+
+    atualizar(cliente: Cliente) {
+        const clientes = this.obterClientes();
+        const index = clientes.findIndex((c) => c.id === cliente.id);
+        if (index !== -1) {
+            clientes[index] = cliente;
+            localStorage.setItem(ClientesService.REPO_CLIENTE, JSON.stringify(clientes));
+        }
+    }
 }
