@@ -85,11 +85,13 @@ export class Consulta implements AfterViewInit {
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('Fechando a janela', result);
+            this.deletar(result);
         });
     }
 
-    confirmDelete(): void {
-        console.log('Delete confirmed for clienteID');
+    deletar(id: string): void {
+        this.serviceConsultar.deletar(id);
+        this.ListaClientesData.data = this.serviceConsultar.pesquisarCliente(this.nomeBusca);
     }
 }
 @Component({

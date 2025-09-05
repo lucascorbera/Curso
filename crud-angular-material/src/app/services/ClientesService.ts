@@ -52,4 +52,15 @@ export class ClientesService {
             localStorage.setItem(ClientesService.REPO_CLIENTE, JSON.stringify(clientes));
         }
     }
+
+    deletar(id: string) {
+        const clientes = this.obterClientes();
+        const index = clientes.findIndex((c) => c.id === id);
+        if (index !== -1) {
+            clientes.splice(index, 1);
+            localStorage.setItem(ClientesService.REPO_CLIENTE, JSON.stringify(clientes));
+            // Atualiza a lista de clientes após a exclusão
+            this.obterClientes();
+        }
+    }
 }
