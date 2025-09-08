@@ -11,7 +11,7 @@ export interface Estado {
     nome: string;
     sigla: string;
 }
-export interface Cidade {
+export interface Municipio {
     nome: string;
     codigo_ibge: string;
 }

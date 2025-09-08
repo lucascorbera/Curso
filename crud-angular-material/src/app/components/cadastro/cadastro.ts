@@ -11,6 +11,10 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { ClientesService } from '../../services/ClientesService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { BrasilApiService } from '../../services/Brasil-api-service';
+import { Estado, Municipio } from '../../Models/brasil-api-models/brasil-api-models-module';
+import { MatSelectModule, MatSelectChange } from '@angular/material/select';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-cadastro',
@@ -25,6 +29,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
         MatButtonModule,
         MatIconModule,
         NgxMaskDirective,
+        MatSelectModule,
+        CommonModule,
     ],
     templateUrl: './cadastro.html',
     styleUrls: ['./cadastro.scss'],
@@ -33,11 +39,13 @@ export class Cadastro {
     cliente: Cliente = Cliente.newCliente();
 
     varSnackBar: MatSnackBar = inject(MatSnackBar);
-
+    ufs: Estado[] = [];
+    municipios: Municipio[] = [];
     constructor(
         private service: ClientesService,
         private route: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private ServiceApiBrasil: BrasilApiService
     ) {}
 
     Salvar(form: NgForm) {
@@ -60,10 +68,13 @@ export class Cadastro {
 
             // ou só form.resetForm() para limpar tudo
             this.cliente = Cliente.newCliente();
-            this.mandarMsgSnackbar('Cliente cadastrado com sucesso!', 'Fechar');
         }
     }
 
+    Limpar(form?: NgForm) {
+        this.cliente = Cliente.newCliente();
+        form?.resetForm(); // opcional: limpa estados de validade/dirty/touched
+    }
     id: string | null = null;
     ngOnInit() {
         // Forma 1 - pega o valor só uma vez, quando o componente inicia
@@ -77,14 +88,45 @@ export class Cadastro {
             console.log('ID atualizado:', this.id);
             if (this.id) {
                 this.cliente = this.service.getClienteById(this.id);
+                if (this.cliente.estado) {
+                    const event = { value: this.cliente.estado } as MatSelectChange;
+                    this.carregarMunicipios(event);
+                }
             } else {
                 this.cliente = Cliente.newCliente();
             }
         });
+
+        this.carregarUfs();
     }
     mandarMsgSnackbar(message: string, action: string) {
         this.varSnackBar.open(message, action, {
             duration: 2000,
+        });
+    }
+
+    carregarUfs() {
+        this.ServiceApiBrasil.listarUFs().subscribe({
+            next: (dados) => {
+                this.ufs = dados;
+                console.log('UFs carregadas:', this.ufs);
+            },
+            error: (erro) => {
+                console.error('Erro ao carregar UFs:', erro);
+            },
+        });
+    }
+
+    carregarMunicipios(event: MatSelectChange) {
+        const uf = event.value;
+        this.ServiceApiBrasil.listarMunicipios(uf).subscribe({
+            next: (dados) => {
+                this.municipios = dados;
+                console.log('Municípios carregados:', this.municipios);
+            },
+            error: (erro) => {
+                console.error('Erro ao carregar Municípios:', erro);
+            },
         });
     }
 }

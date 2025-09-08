@@ -68,6 +68,37 @@
                             </mat-form-field>
                         </div>
                     </div>
+                    <div fxlayout="row" fxlayoutalign="start" fxlayoutgap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                            <mat-form-field class="full-width">
+                                <mat-label>UF</mat-label>
+                                <mat-select
+                                    [(value)]="cliente.estado"
+                                    (selectionChange)="carregarMunicipios($event)"
+                                    required
+                                >
+                                    <mat-option *ngFor="let estado of ufs" [value]="estado.sigla">
+                                        {{ estado.nome }} ({{ estado.sigla }})
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxlayout="row" fxlayoutalign="start" fxlayoutgap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                            <mat-form-field class="full-width">
+                                <mat-label>Municipio</mat-label>
+                                <mat-select [(value)]="cliente.municipio" required>
+                                    <mat-option
+                                        *ngFor="let municipio of municipios"
+                                        [value]="municipio.nome"
+                                    >
+                                        {{ municipio.nome }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
                     <mat-card-actions>
                         @if(cliente.id) {
                         <button class="ml-10" mat-flat-button color="primary" type="submit">
@@ -80,7 +111,13 @@
                             Salvar
                         </button>
                         }
-                        <button class="ml-10" mat-flat-button color="accent">
+                        <button
+                            type="button"
+                            (click)="Limpar()"
+                            class="ml-10"
+                            mat-flat-button
+                            color="accent"
+                        >
                             <mat-icon>backspace</mat-icon>
                             Limpar
                         </button>
