@@ -1,43 +1,57 @@
-<mat-toolbar color="primary" class="app-toolbar">
-  <!-- Botão que abre o drawer lateral -->
+<!-- Toolbar fixa -->
+<mat-toolbar color="primary" class="toolbar">
   <button mat-icon-button (click)="drawer.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
+  <span class="toolbar-title">Cadastro de Clientes</span>
 
-  <span class="title">Cadastro de Clientes</span>
   <span class="spacer"></span>
 
-  <!-- Menu suspenso na toolbar -->
-  <button mat-button [matMenuTriggerFor]="mainMenu">
-    Opções
-    <mat-icon>arrow_drop_down</mat-icon>
+  <!-- Menu no topo -->
+  <button mat-icon-button [matMenuTriggerFor]="perfilMenu">
+    <mat-icon>account_circle</mat-icon>
   </button>
+  <mat-menu #perfilMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      Configurações
+    </button>
+    <button mat-menu-item>
+      <mat-icon>logout</mat-icon>
+      Sair
+    </button>
+  </mat-menu>
 </mat-toolbar>
 
-<!-- Drawer container -->
-<mat-drawer-container class="app-container" autosize>
-  <!-- Drawer lateral -->
-  <mat-drawer #drawer mode="side" position="start">
-    <p><a routerLink="/cadastro">Cadastro</a></p>
-    <p><a routerLink="/consulta">Consulta</a></p>
+<!-- Container que respeita altura do toolbar -->
+<mat-drawer-container autosize class="app-container">
+  <!-- Menu lateral -->
+  <mat-drawer #drawer mode="side">
+    <mat-nav-list>
+      <ng-container *ngFor="let item of menuItems">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>{{ item.icon }}</mat-icon>
+              <span>{{ item.label }}</span>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <ng-container *ngFor="let child of item.children">
+            <a mat-list-item [routerLink]="child.route" routerLinkActive="active-link">
+              <mat-icon>{{ child.icon }}</mat-icon>
+              <span>{{ child.label }}</span>
+            </a>
+          </ng-container>
+        </mat-expansion-panel>
+      </ng-container>
+    </mat-nav-list>
   </mat-drawer>
 
-  <!-- Conteúdo -->
+  <!-- Conteúdo principal -->
   <mat-drawer-content>
     <div class="content">
       <router-outlet></router-outlet>
     </div>
   </mat-drawer-content>
 </mat-drawer-container>
-
-<!-- Definição do menu suspenso -->
-<mat-menu #mainMenu="matMenu">
-  <button mat-menu-item routerLink="/cadastro">
-    <mat-icon>add_task</mat-icon>
-    <span>Cadastro</span>
-  </button>
-  <button mat-menu-item routerLink="/consulta">
-    <mat-icon>search</mat-icon>
-    <span>Consulta</span>
-  </button>
-</mat-menu>
