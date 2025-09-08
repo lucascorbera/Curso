@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -7,11 +7,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Cliente } from './Cliente';
-import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { ClientesService } from '../../services/ClientesService';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
     selector: 'app-cadastro',
+    providers: [provideNgxMask()],
+    standalone: true,
     imports: [
         FlexLayoutModule,
         MatCardModule,
@@ -28,6 +32,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class Cadastro {
     cliente: Cliente = Cliente.newCliente();
 
+    varSnackBar: MatSnackBar = inject(MatSnackBar);
+
     constructor(
         private service: ClientesService,
         private route: ActivatedRoute,
@@ -39,6 +45,7 @@ export class Cadastro {
             console.log('vou atualizar meu cadastro', this.cliente);
             this.service.atualizar(this.cliente);
             this.router.navigate(['consulta'], { replaceUrl: true });
+            this.mandarMsgSnackbar('Cliente atualizado com sucesso!', 'Fechar');
         } else {
             console.log('vou salvar um novo cadastro', this.cliente);
             this.service.salvar(this.cliente);
@@ -53,6 +60,7 @@ export class Cadastro {
 
             // ou só form.resetForm() para limpar tudo
             this.cliente = Cliente.newCliente();
+            this.mandarMsgSnackbar('Cliente cadastrado com sucesso!', 'Fechar');
         }
     }
 
@@ -72,6 +80,11 @@ export class Cadastro {
             } else {
                 this.cliente = Cliente.newCliente();
             }
+        });
+    }
+    mandarMsgSnackbar(message: string, action: string) {
+        this.varSnackBar.open(message, action, {
+            duration: 2000,
         });
     }
 }
