@@ -1,3 +1,28 @@
 .spacer {
   flex: 1 1 auto;
 }
+.app-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+}
+
+.app-container {
+  height: 100vh;
+  margin-top: 64px; // espaço para toolbar
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.title {
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+.content {
+  padding: 16px;
+}

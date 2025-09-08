@@ -1,11 +1,43 @@
-<mat-toolbar color="primary">
-  <span>Cadastro de Clientes</span>
+<mat-toolbar color="primary" class="app-toolbar">
+  <!-- Botão que abre o drawer lateral -->
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="title">Cadastro de Clientes</span>
   <span class="spacer"></span>
-  <a matFab extended routerLink="cadastro">
-    <mat-icon>add_task</mat-icon>
-    Cadastros</a>
-  <a matFab extended routerLink="consulta">
-    <mat-icon>search</mat-icon>
-    Consultar</a>
+
+  <!-- Menu suspenso na toolbar -->
+  <button mat-button [matMenuTriggerFor]="mainMenu">
+    Opções
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
 </mat-toolbar>
-<router-outlet></router-outlet>
+
+<!-- Drawer container -->
+<mat-drawer-container class="app-container" autosize>
+  <!-- Drawer lateral -->
+  <mat-drawer #drawer mode="side" position="start">
+    <p><a routerLink="/cadastro">Cadastro</a></p>
+    <p><a routerLink="/consulta">Consulta</a></p>
+  </mat-drawer>
+
+  <!-- Conteúdo -->
+  <mat-drawer-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+<!-- Definição do menu suspenso -->
+<mat-menu #mainMenu="matMenu">
+  <button mat-menu-item routerLink="/cadastro">
+    <mat-icon>add_task</mat-icon>
+    <span>Cadastro</span>
+  </button>
+  <button mat-menu-item routerLink="/consulta">
+    <mat-icon>search</mat-icon>
+    <span>Consulta</span>
+  </button>
+</mat-menu>
