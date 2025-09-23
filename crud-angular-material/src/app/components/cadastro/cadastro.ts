@@ -15,6 +15,7 @@ import { BrasilApiService } from '../../services/Brasil-api-service';
 import { Estado, Municipio } from '../../Models/brasil-api-models/brasil-api-models-module';
 import { MatSelectModule, MatSelectChange } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
     selector: 'app-cadastro',
@@ -31,6 +32,7 @@ import { CommonModule } from '@angular/common';
         NgxMaskDirective,
         MatSelectModule,
         CommonModule,
+        MatProgressSpinnerModule,
     ],
     templateUrl: './cadastro.html',
     styleUrls: ['./cadastro.scss'],
@@ -41,12 +43,72 @@ export class Cadastro {
     varSnackBar: MatSnackBar = inject(MatSnackBar);
     ufs: Estado[] = [];
     municipios: Municipio[] = [];
+
     constructor(
         private service: ClientesService,
         private route: ActivatedRoute,
         private router: Router,
         private ServiceApiBrasil: BrasilApiService
     ) {}
+
+    onCepChange(cep: string | null) {
+        if (!cep) {
+            return;
+        } // <- evita erro se for null ou vazio
+
+        const cepLimpo = cep.replace(/\D/g, '');
+
+        if (cepLimpo.length === 8) {
+            this.buscarEndereco(cepLimpo);
+        }
+    }
+    loadingCep = false;
+    buscarEndereco(cep: string) {
+        try {
+            this.loadingCep = true;
+            this.ServiceApiBrasil.buscarEnderecoPorCep(cep).subscribe({
+                next: (dadosCep) => {
+                    this.cliente.endereco = dadosCep.street;
+                    this.cliente.estado = dadosCep.state;
+                    this.cliente.bairro = dadosCep.neighborhood;
+                    console.log('Endereço encontrado:', dadosCep);
+                    this.ServiceApiBrasil.listarMunicipios(dadosCep.state).subscribe({
+                        next: (dados) => {
+                            this.municipios = dados;
+                            this.cliente.municipio =
+                                dados.find(
+                                    (m) => m.nome.toUpperCase() === dadosCep.city.toUpperCase()
+                                )?.nome || '';
+                            console.log('Municípios carregados:', this.municipios);
+                        },
+                        error: (erro) => {
+                            console.error('Erro ao carregar Municípios:', erro);
+                        },
+                    });
+                },
+                error: (erro) => {
+                    console.error('Erro ao buscar endereço:', erro);
+                    this.mandarMsgSnackbar('Erro ao buscar endereço pelo CEP', 'Fechar');
+                    this.cliente.endereco = '';
+                    this.cliente.cep = '';
+                    this.loadingCep = false;
+                    this.cliente.bairro = '';
+                    this.cliente.municipio = '';
+                    this.cliente.estado = '';
+                },
+                complete: () => (this.loadingCep = false),
+            });
+        } catch (error) {
+            console.error('Erro inesperado ao buscar endereço:', error);
+            this.mandarMsgSnackbar('Erro inesperado ao buscar endereço', 'Fechar');
+            this.cliente.endereco = '';
+            this.cliente.cep = '';
+            this.loadingCep = false;
+            this.cliente.bairro = '';
+            this.cliente.municipio = '';
+            this.cliente.estado = '';
+        }
+    }
 
     Salvar(form: NgForm) {
         if (this.id) {

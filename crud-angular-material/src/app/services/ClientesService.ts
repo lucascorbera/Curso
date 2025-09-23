@@ -15,6 +15,7 @@ export class ClientesService {
 
     salvar(cliente: Cliente) {
         // aqui eu estou pegando meu local storage
+        console.log('salvando cliente', cliente);
         cliente.gerarNovoId();
         const storage = this.obterClientes();
         //

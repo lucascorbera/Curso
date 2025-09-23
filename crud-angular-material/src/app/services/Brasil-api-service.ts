@@ -18,4 +18,8 @@ export class BrasilApiService {
     listarMunicipios(uf: string): Observable<Municipio[]> {
         return this.http.get<Municipio[]>(`${this.urlBase}/ibge/municipios/v1/${uf}`);
     }
+
+    buscarEnderecoPorCep(cep: string): Observable<any> {
+        return this.http.get<any>(`${this.urlBase}/cep/v2/${cep}`);
+    }
 }

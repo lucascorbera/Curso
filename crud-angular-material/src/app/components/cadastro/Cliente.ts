@@ -10,6 +10,8 @@ export class Cliente {
     estado?: string = '';
     cep?: string = '';
     endereco?: string = '';
+    bairro?: string = '';
+
     constructor(
         id?: string,
         nome?: string,
@@ -19,7 +21,8 @@ export class Cliente {
         municipio?: string,
         estado?: string,
         cep?: string,
-        endereco?: string
+        endereco?: string,
+        bairro?: string
     ) {
         this.id = id;
         this.nome = nome;
@@ -30,6 +33,7 @@ export class Cliente {
         this.estado = estado;
         this.cep = cep;
         this.endereco = endereco;
+        this.bairro = bairro;
     }
 
     static newCliente() {
