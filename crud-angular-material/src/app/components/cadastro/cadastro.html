@@ -55,6 +55,38 @@
                     <div fxlayout="row" fxlayoutalign="start" fxlayoutgap="16px">
                         <div fxLayout="column" fxFlex="400px">
                             <mat-form-field class="full-width">
+                                <mat-label>CEP</mat-label>
+                                <input
+                                    type="text"
+                                    mask="00000-000"
+                                    [(ngModel)]="cliente.cep"
+                                    matInput
+                                    required
+                                    name="cep"
+                                    placeholder="Digite seu CEP"
+                                />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxlayout="row" fxlayoutalign="start" fxlayoutgap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                            <mat-form-field class="full-width">
+                                <mat-label>Endereço</mat-label>
+                                <input
+                                    type="text"
+                                    [(ngModel)]="cliente.endereco"
+                                    matInput
+                                    required
+                                    name="endereco"
+                                    disabled="true"
+                                    placeholder="Digite seu CEP"
+                                />
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div fxlayout="row" fxlayoutalign="start" fxlayoutgap="16px">
+                        <div fxLayout="column" fxFlex="400px">
+                            <mat-form-field class="full-width">
                                 <mat-label>Data de Nascimento</mat-label>
                                 <input
                                     type="text"

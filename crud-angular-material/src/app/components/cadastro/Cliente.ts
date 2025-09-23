@@ -8,7 +8,8 @@ export class Cliente {
     dataNascimento?: Date = new Date();
     municipio?: string = '';
     estado?: string = '';
-
+    cep?: string = '';
+    endereco?: string = '';
     constructor(
         id?: string,
         nome?: string,
@@ -16,7 +17,9 @@ export class Cliente {
         cpf?: string,
         dataNascimento?: Date,
         municipio?: string,
-        estado?: string
+        estado?: string,
+        cep?: string,
+        endereco?: string
     ) {
         this.id = id;
         this.nome = nome;
@@ -25,6 +28,8 @@ export class Cliente {
         this.dataNascimento = dataNascimento;
         this.municipio = municipio;
         this.estado = estado;
+        this.cep = cep;
+        this.endereco = endereco;
     }
 
     static newCliente() {
