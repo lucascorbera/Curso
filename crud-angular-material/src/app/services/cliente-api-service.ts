@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import type { Cliente } from '../components/cadastro/Cliente';
 @Injectable({
     providedIn: 'root',
@@ -14,5 +14,21 @@ export class ClienteApiService {
     }
     AtualizarCliente(dadosCliente: Cliente): Observable<Cliente> {
         return this.http.put<Cliente>(`${this.url_base}/clientes/${dadosCliente.id}`, dadosCliente);
+    }
+    DeletarCliente(id: string): Observable<void> {
+        return this.http.delete<void>(`${this.url_base}/clientes/${id}`);
+    }
+
+    ListarClientes(): Observable<Cliente[]> {
+        return this.http.get<Cliente[]>(`${this.url_base}/clientes`);
+    }
+    PesquisarClienteNome(nome: string): Observable<Cliente[]> {
+        return this.http
+            .get<Cliente[]>(`${this.url_base}/clientes`)
+            .pipe(
+                map((list) =>
+                    list.filter((c) => (c.nome ?? '').toLowerCase().includes(nome.toLowerCase()))
+                )
+            );
     }
 }

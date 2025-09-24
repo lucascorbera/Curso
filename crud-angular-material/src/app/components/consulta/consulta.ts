@@ -12,6 +12,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ChangeDetectionStrategy, inject } from '@angular/core';
+import { ClienteApiService } from '../../services/cliente-api-service';
 import {
     MatDialog,
     MatDialogActions,
@@ -55,15 +56,33 @@ export class Consulta implements AfterViewInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    constructor(private serviceConsultar: ClientesService, private router: Router) {}
+    constructor(
+        private serviceConsultar: ClientesService,
+        private router: Router,
+        private ClienteApiService: ClienteApiService
+    ) {}
     ngOnInit() {
-        this.listaClientes = this.serviceConsultar.pesquisarCliente('');
-        this.ListaClientesData.data = this.listaClientes; // importante!
+        this.ClienteApiService.ListarClientes().subscribe({
+            next: (clientes) => {
+                this.listaClientes = clientes;
+                this.ListaClientesData.data = this.listaClientes; // importante!
+            },
+            error: (erro) => {
+                console.error('Erro ao listar clientes via API:', erro);
+            },
+        });
     }
 
     pesquisar() {
-        this.listaClientes = this.serviceConsultar.pesquisarCliente(this.nomeBusca);
-        this.ListaClientesData.data = this.listaClientes; // atualiza a tabela
+        this.ClienteApiService.PesquisarClienteNome(this.nomeBusca).subscribe({
+            next: (clientes) => {
+                this.listaClientes = clientes;
+                this.ListaClientesData.data = this.listaClientes; // atualiza a tabela
+            },
+            error: (erro) => {
+                console.error('Erro ao pesquisar cliente via API:', erro);
+            },
+        });
     }
 
     ngAfterViewInit() {
@@ -85,13 +104,25 @@ export class Consulta implements AfterViewInit {
 
         dialogRef.afterClosed().subscribe((result) => {
             console.log('Fechando a janela', result);
-            this.deletar(result);
+            if (result) {
+                this.deletar(result);
+            }
         });
     }
 
     deletar(id: string): void {
         this.serviceConsultar.deletar(id);
-        this.ListaClientesData.data = this.serviceConsultar.pesquisarCliente(this.nomeBusca);
+        this.ClienteApiService.DeletarCliente(id).subscribe({
+            next: () => {
+                console.log('Cliente deletado via API com sucesso');
+                this.ListaClientesData.data = this.serviceConsultar.pesquisarCliente(
+                    this.nomeBusca
+                );
+            },
+            error: (erro) => {
+                console.error('Erro ao deletar cliente via API:', erro);
+            },
+        });
     }
 }
 @Component({
