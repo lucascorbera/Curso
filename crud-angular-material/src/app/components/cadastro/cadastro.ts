@@ -16,6 +16,7 @@ import { Estado, Municipio } from '../../Models/brasil-api-models/brasil-api-mod
 import { MatSelectModule, MatSelectChange } from '@angular/material/select';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ClienteApiService } from '../../services/cliente-api-service';
 
 @Component({
     selector: 'app-cadastro',
@@ -48,7 +49,8 @@ export class Cadastro {
         private service: ClientesService,
         private route: ActivatedRoute,
         private router: Router,
-        private ServiceApiBrasil: BrasilApiService
+        private ServiceApiBrasil: BrasilApiService,
+        private ClienteApiService: ClienteApiService
     ) {}
 
     onCepChange(cep: string | null) {
@@ -115,11 +117,26 @@ export class Cadastro {
             console.log('vou atualizar meu cadastro', this.cliente);
             this.service.atualizar(this.cliente);
             this.router.navigate(['consulta'], { replaceUrl: true });
-            this.mandarMsgSnackbar('Cliente atualizado com sucesso!', 'Fechar');
+            this.ClienteApiService.AtualizarCliente(this.cliente).subscribe({
+                next: (clienteAtualizado) => {
+                    console.log('Cliente atualizado via API:', clienteAtualizado);
+                    this.mandarMsgSnackbar('Cliente atualizado com sucesso!', 'Fechar');
+                },
+                error: (erro) => {
+                    console.error('Erro ao atualizar cliente via API:', erro);
+                },
+            });
         } else {
             console.log('vou salvar um novo cadastro', this.cliente);
             this.service.salvar(this.cliente);
-
+            this.ClienteApiService.InserirCliente(this.cliente).subscribe({
+                next: (clienteInserido) => {
+                    console.log('Cliente inserido via API:', clienteInserido);
+                },
+                error: (erro) => {
+                    console.error('Erro ao inserir cliente via API:', erro);
+                },
+            });
             // limpa o formulário corretamente
             form.resetForm({
                 nome: this.cliente.nome, // mantém valor se quiser

@@ -1,0 +1,49 @@
+{
+  "clientes": [
+    {
+      "id": "73bd344d-54d9-463c-89ec-f6f42dbe806b",
+      "nome": "Lucas Albino Corbera",
+      "email": "lcprimeloja@gmail.com",
+      "cpf": "41050071816",
+      "dataNascimento": "15061992",
+      "municipio": "SÃO PAULO",
+      "estado": "SP",
+      "cep": "05724030",
+      "endereco": "Avenida Alberto Augusto Alves"
+    },
+    {
+      "id": "2d351df1-481a-437f-a990-c4647c269f67",
+      "nome": "Lucas Albino Corbera",
+      "email": "info@example.com",
+      "cpf": "33333333300",
+      "dataNascimento": "15061992",
+      "municipio": "SÃO PAULO",
+      "estado": "SP",
+      "cep": "05724030",
+      "endereco": "Avenida Alberto Augusto Alves"
+    },
+    {
+      "id": "56426ecf-7e7a-40a3-9aab-cffc2b92916b",
+      "nome": "Lucas Albino Corbera",
+      "email": "lcprimeloja@gmail.com",
+      "cpf": "41050071816",
+      "dataNascimento": "15061992",
+      "municipio": "SÃO PAULO",
+      "estado": "SP",
+      "cep": "05724030",
+      "endereco": "Avenida Alberto Augusto Alves"
+    },
+    {
+      "id": "c55c9e7c-18a0-4cb6-897f-2c98666da0d0",
+      "nome": "Lucas Albino Corbera",
+      "email": "teste@api.com.br",
+      "cpf": "41050071816",
+      "dataNascimento": "15061992",
+      "municipio": "SÃO PAULO",
+      "estado": "SP",
+      "cep": "05724030",
+      "endereco": "Avenida Alberto Augusto Alves",
+      "bairro": "Vila Andrade"
+    }
+  ]
+}
