@@ -136,6 +136,7 @@ export class Cadastro {
                 error: (erro) => {
                     console.error('Erro ao inserir cliente via API:', erro);
                 },
+                complete: () => this.mandarMsgSnackbar('Cliente inserido com sucesso!', 'Fechar'),
             });
             // limpa o formulário corretamente
             form.resetForm({
