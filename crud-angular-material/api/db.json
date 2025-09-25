@@ -1,18 +1,6 @@
 {
   "clientes": [
     {
-      "id": "01948a5c-5ed5-45fb-a038-2f886cf4ce03",
-      "nome": "Lucas Albino Corbera",
-      "email": "lcprimeloja@gmail.com",
-      "cpf": "41050071816",
-      "dataNascimento": "11111111",
-      "municipio": "SÃO PAULO",
-      "estado": "SP",
-      "cep": "05724030",
-      "endereco": "Avenida Alberto Augusto Alves",
-      "bairro": "Vila Andrade"
-    },
-    {
       "id": "bf419230-9815-4a54-817e-410047d877ca",
       "nome": "Óculos de sol Gatinho Feminino  uv400 luxo Premium dourado",
       "email": "lu.s.costa1@gmail.com",

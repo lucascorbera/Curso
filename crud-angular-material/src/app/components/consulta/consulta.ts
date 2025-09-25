@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { ClientesService } from '../../services/ClientesService';
+//import { ClientesService } from '../../services/ClientesService';
 import { Cliente } from '../cadastro/Cliente';
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
@@ -57,7 +57,7 @@ export class Consulta implements AfterViewInit {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(
-        private serviceConsultar: ClientesService,
+        //private serviceConsultar: ClientesService,
         private router: Router,
         private ClienteApiService: ClienteApiService
     ) {}
@@ -111,13 +111,19 @@ export class Consulta implements AfterViewInit {
     }
 
     deletar(id: string): void {
-        this.serviceConsultar.deletar(id);
+        //this.serviceConsultar.deletar(id);
         this.ClienteApiService.DeletarCliente(id).subscribe({
             next: () => {
                 console.log('Cliente deletado via API com sucesso');
-                this.ListaClientesData.data = this.serviceConsultar.pesquisarCliente(
-                    this.nomeBusca
-                );
+                this.ClienteApiService.ListarClientes().subscribe({
+                    next: (clientes) => {
+                        this.listaClientes = clientes;
+                        this.ListaClientesData.data = this.listaClientes; // importante!
+                    },
+                    error: (erro) => {
+                        console.error('Erro ao listar clientes via API:', erro);
+                    },
+                });
             },
             error: (erro) => {
                 console.error('Erro ao deletar cliente via API:', erro);

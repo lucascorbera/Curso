@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Cliente } from './Cliente';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
-import { ClientesService } from '../../services/ClientesService';
+//import { ClientesService } from '../../services/ClientesService';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BrasilApiService } from '../../services/Brasil-api-service';
@@ -46,7 +46,7 @@ export class Cadastro {
     municipios: Municipio[] = [];
 
     constructor(
-        private service: ClientesService,
+        //private service: ClientesService,
         private route: ActivatedRoute,
         private router: Router,
         private ServiceApiBrasil: BrasilApiService,
@@ -115,7 +115,7 @@ export class Cadastro {
     Salvar(form: NgForm) {
         if (this.id) {
             console.log('vou atualizar meu cadastro', this.cliente);
-            this.service.atualizar(this.cliente);
+            //this.service.atualizar(this.cliente);
             this.router.navigate(['consulta'], { replaceUrl: true });
             this.ClienteApiService.AtualizarCliente(this.cliente).subscribe({
                 next: (clienteAtualizado) => {
@@ -128,7 +128,7 @@ export class Cadastro {
             });
         } else {
             console.log('vou salvar um novo cadastro', this.cliente);
-            this.service.salvar(this.cliente);
+            //this.service.salvar(this.cliente);
             this.ClienteApiService.InserirCliente(this.cliente).subscribe({
                 next: (clienteInserido) => {
                     console.log('Cliente inserido via API:', clienteInserido);
@@ -166,7 +166,7 @@ export class Cadastro {
             this.id = params.get('id');
             console.log('ID atualizado:', this.id);
             if (this.id) {
-                this.cliente = this.service.getClienteById(this.id);
+                //this.cliente = this.service.getClienteById(this.id);
                 if (this.cliente.estado) {
                     const event = { value: this.cliente.estado } as MatSelectChange;
                     this.carregarMunicipios(event);
