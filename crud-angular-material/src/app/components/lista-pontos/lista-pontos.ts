@@ -43,7 +43,7 @@ export class ListaPontos {
     constructor(private jira: JiraService) {}
     ngOnInit(): void {
         // substitua a JQL pela sua
-        const jql = `project = 'Historias - Desenvolvimento'
+        const jql = ` issuetype = Atividades and project = 'Historias - Desenvolvimento'
       AND Sprint in (openSprints()) ORDER BY status ASC`;
 
         this.load(jql);
