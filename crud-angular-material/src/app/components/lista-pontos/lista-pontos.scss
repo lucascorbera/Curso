@@ -1,0 +1,19 @@
+.points-grid-container {
+    padding: 16px;
+}
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.error {
+    color: #b00020;
+    margin: 8px 0;
+}

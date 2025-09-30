@@ -53,11 +53,14 @@ export class App {
                 ],
             },
             {
-                label: 'Consultas',
+                label: 'Sprints',
                 icon: 'search',
                 children: [
-                    { label: 'Por Nome', icon: 'badge', route: '/consultas/nome' },
-                    { label: 'Por CPF', icon: 'credit_card', route: '/consultas/cpf' },
+                    {
+                        label: 'Total de Pontos',
+                        icon: 'badge',
+                        route: '/lista-pontos',
+                    },
                 ],
             },
             {
