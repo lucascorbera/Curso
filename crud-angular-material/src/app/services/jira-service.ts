@@ -20,7 +20,8 @@ export class JiraService {
 
     getPointsSummaryByReporter(jql: string): Observable<PersonPoints[]> {
         // <-- Substitua aqui por config segura (environment/localStorage) em produção -->
-        const email = 'lucas.corbera@tbforte.com.br';
+
+        /* const email = 'lucas.corbera@tbforte.com.br';
         const apiToken = '';
 
         const authHeader = this.auth.getBasicAuthHeader(email, apiToken);
@@ -30,7 +31,7 @@ export class JiraService {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         });
-
+        */
         const body = {
             fields: ['customfield_10042', 'assignee'],
             jql,
