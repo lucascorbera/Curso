@@ -33,8 +33,8 @@ import { forkJoin } from 'rxjs';
     styleUrl: './lista-pontos.scss',
 })
 export class ListaPontos {
-    displayedColumns: string[] = ['avatar', 'displayName', 'points', 'completedPoints'];
-    dataSource = new MatTableDataSource<PersonPoints>([]);
+    dataSource = new MatTableDataSource<PersonPoints>();
+    displayedColumns: string[] = ['avatar', 'displayName', 'plannedPoints', 'completedPoints'];
     loading = false;
     error?: string;
 
@@ -42,40 +42,24 @@ export class ListaPontos {
     @ViewChild(MatPaginator) paginator!: MatPaginator;
 
     constructor(private jira: JiraService) {}
+
     ngOnInit(): void {
-        // substitua a JQL pela sua
-        const jql = ` issuetype = Atividades and project = 'Historias - Desenvolvimento'
-      AND Sprint in (openSprints()) `;
-        const jqlCompleted = ` issuetype = Atividades and project = 'Historias - Desenvolvimento'
-      AND Sprint in (openSprints()) and status = Done`;
-        this.load(jql, jqlCompleted);
+        this.load(
+            `issuetype = Atividades and project = 'Historias - Desenvolvimento'
+      AND Sprint in (openSprints())`, // JQL planejado
+            ` issuetype = Atividades and project = 'Historias - Desenvolvimento'
+      AND Sprint in (openSprints()) and status = Done` // JQL concluído
+        );
     }
 
-    load(jql: string, jqlCompleted: string) {
+    load(jqlPlanned: string, jqlCompleted: string) {
         this.loading = true;
         this.error = undefined;
 
-        const jqlAll = jql;
-        const jqlDone = jqlCompleted;
-
-        forkJoin({
-            all: this.jira.getPointsSummaryByReporter(jqlAll),
-            done: this.jira.getCompletedPointsByReporter(jqlDone),
-        }).subscribe({
-            next: ({ all, done }) => {
-                // mescla as duas listas
-                console.log('All:', all);
-                console.log('Done:', done);
-                const merged = all.map((person) => {
-                    const completed = done.find((d) => d.accountId === person.accountId);
-                    return {
-                        ...person,
-                        completedPoints: completed?.points ?? 0,
-                    };
-                });
-
-                this.dataSource.data = merged;
-
+        this.jira.getPointsSummaryByReporter(jqlPlanned, jqlCompleted).subscribe({
+            next: (arr) => {
+                this.dataSource.data = arr;
+                console.log(arr);
                 setTimeout(() => {
                     this.dataSource.sort = this.sort;
                     this.dataSource.paginator = this.paginator;
@@ -96,7 +80,7 @@ export class ListaPontos {
         const header = ['Nome', 'Pontos'];
         const csv = [
             header.join(','),
-            ...rows.map((r) => `"${r.displayName.replace(/"/g, '""')}",${r.points}`),
+            ...rows.map((r) => `"${r.displayName.replace(/"/g, '""')}",${r.plannedPoints}`),
         ].join('\n');
 
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });

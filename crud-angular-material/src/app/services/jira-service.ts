@@ -1,66 +1,76 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
-
-import { AuthService } from './auth-service';
+import { HttpClient } from '@angular/common/http';
+import { Observable, forkJoin, map } from 'rxjs';
 
 export interface PersonPoints {
     accountId: string;
     displayName: string;
-    avatar?: string;
-    points: number;
-    completedPoints?: number;
+    avatar: string;
+    plannedPoints: number;
+    completedPoints: number;
 }
 
-@Injectable({
-    providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class JiraService {
-    url_base = 'https://tecbantv.atlassian.net/rest/api/3';
-    constructor(private http: HttpClient, private auth: AuthService) {}
+    private baseUrl = 'http://localhost:3000/jira';
 
-    // já existe esse aqui
-    getPointsSummaryByReporter(jql: string): Observable<PersonPoints[]> {
-        const body = {
+    constructor(private http: HttpClient) {}
+
+    /**
+     * Retorna pontos planejados e concluídos por reporter
+     */
+    getPointsSummaryByReporter(
+        jqlPlanned: string,
+        jqlCompleted: string
+    ): Observable<PersonPoints[]> {
+        // chamadas para pontos planejados e concluídos
+        const planned$ = this.http.post<any>(`${this.baseUrl}?endpoint=search/jql`, {
             fields: ['customfield_10042', 'assignee'],
-            jql,
+            jql: jqlPlanned,
             maxResults: 5000,
-        };
-        return this.http
-            .post<any>('http://localhost:3000/jira/search', body)
-            .pipe(map((res) => this.mapIssuesToPoints(res?.issues || [])));
-    }
+        });
 
-    // novo método para buscar concluídos
-    getCompletedPointsByReporter(jql: string): Observable<PersonPoints[]> {
-        const body = {
+        const completed$ = this.http.post<any>(`${this.baseUrl}?endpoint=search/jql`, {
             fields: ['customfield_10042', 'assignee'],
-            jql,
+            jql: jqlCompleted,
             maxResults: 5000,
-        };
-        return this.http
-            .post<any>('http://localhost:3000/jira/search', body)
-            .pipe(map((res) => this.mapIssuesToPoints(res?.issues || [])));
-    }
+        });
+        console.log(planned$);
+        console.log(completed$);
+        return forkJoin([planned$, completed$]).pipe(
+            map(([plannedRes, completedRes]) => {
+                const map = new Map<string, PersonPoints>();
 
-    // função auxiliar para não repetir código
-    private mapIssuesToPoints(issues: any[]): PersonPoints[] {
-        const map = new Map<string, PersonPoints>();
+                const process = (issues: any[], key: 'plannedPoints' | 'completedPoints') => {
+                    for (const issue of issues) {
+                        const points = Number(issue?.fields?.customfield_10042) || 0;
+                        const assignee = issue?.fields?.assignee;
+                        const accountId = assignee?.accountId ?? 'unknown';
+                        const displayName = assignee?.displayName ?? 'Unknown';
+                        const avatar =
+                            assignee?.avatarUrls?.['48x48'] ??
+                            assignee?.avatarUrls?.['32x32'] ??
+                            '';
 
-        for (const issue of issues) {
-            const points = Number(issue?.fields?.customfield_10042) || 0;
-            const assignee = issue?.fields?.assignee;
-            const accountId = assignee?.accountId ?? 'unknown';
-            const displayName = assignee?.displayName ?? 'Unknown';
-            const avatar = assignee?.avatarUrls?.['48x48'] ?? assignee?.avatarUrls?.['32x32'] ?? '';
+                        if (map.has(accountId)) {
+                            map.get(accountId)![key] += points;
+                        } else {
+                            map.set(accountId, {
+                                accountId,
+                                displayName,
+                                avatar,
+                                plannedPoints: key === 'plannedPoints' ? points : 0,
+                                completedPoints: key === 'completedPoints' ? points : 0,
+                            });
+                        }
+                    }
+                };
 
-            if (map.has(accountId)) {
-                map.get(accountId)!.points += points;
-            } else {
-                map.set(accountId, { accountId, displayName, avatar, points });
-            }
-        }
+                process(plannedRes?.issues || [], 'plannedPoints');
+                process(completedRes?.issues || [], 'completedPoints');
 
-        return Array.from(map.values()).sort((a, b) => b.points - a.points);
+                return Array.from(map.values()).sort((a, b) => b.plannedPoints - a.plannedPoints);
+            })
+        );
     }
 }
