@@ -8,6 +8,7 @@ export interface PersonPoints {
     avatar: string;
     plannedPoints: number;
     completedPoints: number;
+    Quantidadeissues?: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -35,11 +36,10 @@ export class JiraService {
             jql: jqlCompleted,
             maxResults: 5000,
         });
-        console.log(planned$);
-        console.log(completed$);
+
         return forkJoin([planned$, completed$]).pipe(
             map(([plannedRes, completedRes]) => {
-                const map = new Map<string, PersonPoints>();
+                const meuMapaJuntaRetorno = new Map<string, PersonPoints>();
 
                 const process = (issues: any[], key: 'plannedPoints' | 'completedPoints') => {
                     for (const issue of issues) {
@@ -52,15 +52,18 @@ export class JiraService {
                             assignee?.avatarUrls?.['32x32'] ??
                             '';
 
-                        if (map.has(accountId)) {
-                            map.get(accountId)![key] += points;
+                        if (meuMapaJuntaRetorno.has(accountId)) {
+                            meuMapaJuntaRetorno.get(accountId)![key] += points;
+                            meuMapaJuntaRetorno.get(accountId)!.Quantidadeissues =
+                                (meuMapaJuntaRetorno.get(accountId)!.Quantidadeissues || 0) + 1;
                         } else {
-                            map.set(accountId, {
+                            meuMapaJuntaRetorno.set(accountId, {
                                 accountId,
                                 displayName,
                                 avatar,
                                 plannedPoints: key === 'plannedPoints' ? points : 0,
                                 completedPoints: key === 'completedPoints' ? points : 0,
+                                Quantidadeissues: 1, // primeira issue do usuário
                             });
                         }
                     }
@@ -69,7 +72,9 @@ export class JiraService {
                 process(plannedRes?.issues || [], 'plannedPoints');
                 process(completedRes?.issues || [], 'completedPoints');
 
-                return Array.from(map.values()).sort((a, b) => b.plannedPoints - a.plannedPoints);
+                return Array.from(meuMapaJuntaRetorno.values()).sort(
+                    (a, b) => b.plannedPoints - a.plannedPoints
+                );
             })
         );
     }
