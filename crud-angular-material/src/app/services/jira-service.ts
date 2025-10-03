@@ -8,7 +8,9 @@ export interface PersonPoints {
     avatar: string;
     plannedPoints: number;
     completedPoints: number;
-    Quantidadeissues?: number;
+    QuantidadeissuesTotal?: number;
+    QuantidadeissuesPendentes?: number;
+    QuantidadeissuesConcluidos?: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -26,13 +28,13 @@ export class JiraService {
     ): Observable<PersonPoints[]> {
         // chamadas para pontos planejados e concluídos
         const planned$ = this.http.post<any>(`${this.baseUrl}?endpoint=search/jql`, {
-            fields: ['customfield_10042', 'assignee'],
+            fields: ['status', 'customfield_10042', 'assignee'],
             jql: jqlPlanned,
             maxResults: 5000,
         });
 
         const completed$ = this.http.post<any>(`${this.baseUrl}?endpoint=search/jql`, {
-            fields: ['customfield_10042', 'assignee'],
+            fields: ['status', 'customfield_10042', 'assignee'],
             jql: jqlCompleted,
             maxResults: 5000,
         });
@@ -54,16 +56,48 @@ export class JiraService {
 
                         if (meuMapaJuntaRetorno.has(accountId)) {
                             meuMapaJuntaRetorno.get(accountId)![key] += points;
-                            meuMapaJuntaRetorno.get(accountId)!.Quantidadeissues =
-                                (meuMapaJuntaRetorno.get(accountId)!.Quantidadeissues || 0) + 1;
+
+                            if (key === 'plannedPoints') {
+                                // Sempre soma total
+                                meuMapaJuntaRetorno.get(accountId)!.QuantidadeissuesTotal =
+                                    (meuMapaJuntaRetorno.get(accountId)!.QuantidadeissuesTotal ||
+                                        0) + 1;
+
+                                // Verifica status
+                                if (issue?.fields?.status?.name === 'DONE') {
+                                    meuMapaJuntaRetorno.get(accountId)!.QuantidadeissuesConcluidos =
+                                        (meuMapaJuntaRetorno.get(accountId)!
+                                            .QuantidadeissuesConcluidos || 0) + 1;
+                                } else {
+                                    meuMapaJuntaRetorno.get(accountId)!.QuantidadeissuesPendentes =
+                                        (meuMapaJuntaRetorno.get(accountId)!
+                                            .QuantidadeissuesPendentes || 0) + 1;
+                                }
+                            }
                         } else {
+                            // Inicializa corretamente os contadores
+                            let total = 0;
+                            let concluidos = 0;
+                            let pendentes = 0;
+
+                            if (key === 'plannedPoints') {
+                                total = 1;
+                                if (issue?.fields?.status?.name === 'DONE') {
+                                    concluidos = 1;
+                                } else {
+                                    pendentes = 1;
+                                }
+                            }
+
                             meuMapaJuntaRetorno.set(accountId, {
                                 accountId,
                                 displayName,
                                 avatar,
                                 plannedPoints: key === 'plannedPoints' ? points : 0,
                                 completedPoints: key === 'completedPoints' ? points : 0,
-                                Quantidadeissues: 1, // primeira issue do usuário
+                                QuantidadeissuesTotal: total,
+                                QuantidadeissuesPendentes: pendentes,
+                                QuantidadeissuesConcluidos: concluidos,
                             });
                         }
                     }

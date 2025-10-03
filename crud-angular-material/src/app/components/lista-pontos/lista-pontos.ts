@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { forkJoin } from 'rxjs';
+
 @Component({
     selector: 'app-lista-pontos',
     imports: [
@@ -28,13 +28,23 @@ import { forkJoin } from 'rxjs';
         CommonModule,
         MatPaginatorModule,
         MatSortModule,
+        MatSortModule,
     ],
     templateUrl: './lista-pontos.html',
     styleUrl: './lista-pontos.scss',
 })
 export class ListaPontos {
     dataSource = new MatTableDataSource<PersonPoints>();
-    displayedColumns: string[] = ['avatar', 'displayName', 'plannedPoints', 'completedPoints'];
+    displayedColumns: string[] = [
+        'avatar',
+        'displayName',
+        'QuantidadeissuesTotal',
+        'QuantidadeissuesPendentes',
+        'QuantidadeissuesConcluidos',
+        'plannedPoints',
+        'completedPoints',
+        'completionRate',
+    ];
     loading = false;
     error?: string;
 
@@ -50,6 +60,24 @@ export class ListaPontos {
             ` issuetype = Atividades and project = 'Historias - Desenvolvimento'
       AND Sprint in (openSprints()) and status = Done` // JQL concluído
         );
+    }
+    ngAfterViewInit() {
+        this.dataSource.sort = this.sort;
+    }
+    getRowClass(row: PersonPoints): string {
+        if (!row.QuantidadeissuesTotal || row.QuantidadeissuesTotal === 0) {
+            return ''; // evita divisão por zero
+        }
+
+        const percent = (row.QuantidadeissuesPendentes! / row.QuantidadeissuesTotal) * 100;
+
+        if (percent <= 30) {
+            return 'linha-verde';
+        } else if (percent <= 60) {
+            return 'linha-amarela';
+        } else {
+            return 'linha-vermelha';
+        }
     }
 
     load(jqlPlanned: string, jqlCompleted: string) {

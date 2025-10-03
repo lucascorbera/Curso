@@ -9,7 +9,6 @@ app.use(express.json());
 
 const JIRA_URL = 'https://tecbantv.atlassian.net/rest/api/3';
 const JIRA_EMAIL = 'lucas.corbera@tbforte.com.br';
-const JIRA_API_TOKEN = '';
 
 // ✅ Proxy genérico usando query param "endpoint" ao invés de coringa
 app.post('/jira', async (req, res) => {
