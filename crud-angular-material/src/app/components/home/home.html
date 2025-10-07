@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <span>Dashboard de Projetos - Jira</span>
+</mat-toolbar>
+
+<div class="container">
+  <mat-card class="summary-card">
+    <mat-card-title>Total de Projetos</mat-card-title>
+    <h2>{{ totalProjetos }}</h2>
+  </mat-card>
+
+  <mat-card *ngIf="!loading; else loadingTemplate">
+    <canvas baseChart
+      [data]="chartData"
+      [options]="chartOptions"
+      chartType="bar">
+    </canvas>
+  </mat-card>
+
+  <ng-template #loadingTemplate>
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+      <p>Carregando dados...</p>
+    </div>
+  </ng-template>
+</div>

@@ -19,7 +19,7 @@ app.post('/jira', async (req, res) => {
         }
 
         const url = `${JIRA_URL}/${endpoint}`;
-
+        console.log('Proxying request to:', JSON.stringify(req.body));
         const response = await fetch(url, {
             method: 'POST',
             headers: {

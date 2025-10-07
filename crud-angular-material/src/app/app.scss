@@ -5,7 +5,20 @@
     right: 0;
     z-index: 1000;
 }
+.home-link {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
 
+.home-link:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* fundo leve */
+  color: #ffffff; /* mesma cor dos botões primários do Material */
+}
 .app-container {
     height: calc(100vh - 64px); // desconta a altura do toolbar
     margin-top: 64px;

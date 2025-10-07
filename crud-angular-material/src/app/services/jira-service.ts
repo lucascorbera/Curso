@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, map } from 'rxjs';
+import { Observable, delay, forkJoin, map, of } from 'rxjs';
 
 export interface PersonPoints {
     accountId: string;
@@ -19,6 +19,16 @@ export class JiraService {
 
     constructor(private http: HttpClient) {}
 
+
+    getProjectsByArea() {
+        const data = [
+        { area: 'Desenvolvimento', quantidade: 10 },
+        { area: 'QA', quantidade: 6 },
+        { area: 'Infraestrutura', quantidade: 4 },
+        { area: 'Produto', quantidade: 8 },
+        ];
+        return of(data).pipe(delay(1000)); // Simula um delay de API
+    }
     /**
      * Retorna pontos planejados e concluídos por reporter
      */
