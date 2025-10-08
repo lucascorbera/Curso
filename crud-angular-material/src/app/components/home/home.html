@@ -1,25 +1,28 @@
-<mat-toolbar color="primary">
-  <span>Dashboard de Projetos - Jira</span>
-</mat-toolbar>
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 
-<div class="container">
-  <mat-card class="summary-card">
-    <mat-card-title>Total de Projetos</mat-card-title>
-    <h2>{{ totalProjetos }}</h2>
-  </mat-card>
+<div *ngIf="error" class="error">{{ error }}</div>
 
-  <mat-card *ngIf="!loading; else loadingTemplate">
-    <canvas baseChart
-      [data]="chartData"
-      [options]="chartOptions"
-      chartType="bar">
-    </canvas>
-  </mat-card>
+<div class="dashboard-container mat-elevation-z2" *ngIf="!loading && !error">
+  <mat-toolbar color="primary" class="toolbar">
+    <span>Dashboard de Projetos - Jira</span>
+  </mat-toolbar>
 
-  <ng-template #loadingTemplate>
-    <div class="loading">
-      <mat-spinner></mat-spinner>
-      <p>Carregando dados...</p>
-    </div>
-  </ng-template>
+  <div class="dashboard-content">
+    <!-- CARD TOTAL DE PROJETOS -->
+    <mat-card class="summary-card full-width">
+      <mat-card-title>Total de Projetos</mat-card-title>
+      <h2>{{ totalProjetos }}</h2>
+    </mat-card>
+
+    <!-- CARD DO GRÁFICO -->
+    <mat-card class="chart-card">
+      <canvas
+        baseChart
+        [data]="chartData"
+        [options]="chartOptions"
+        chartType="bar">
+      </canvas>
+    </mat-card>
+  </div>
 </div>
+<!-- FIM DO CÓDIGO -->

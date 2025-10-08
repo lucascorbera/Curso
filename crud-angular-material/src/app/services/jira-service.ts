@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, delay, forkJoin, map, of } from 'rxjs';
+import { Observable, catchError, delay, forkJoin, map, of ,switchMap} from 'rxjs';
 
 export interface PersonPoints {
     accountId: string;
@@ -13,22 +13,78 @@ export interface PersonPoints {
     QuantidadeissuesConcluidos?: number;
 }
 
+export interface QuantidadePRojetosArea{
+    area: string;
+    quantidade: number;
+    status: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class JiraService {
     private baseUrl = 'http://localhost:3000/jira';
 
     constructor(private http: HttpClient) {}
 
+    getTodosProjetosEmBackLog(jqlConsulta: string): Observable<QuantidadePRojetosArea[]> {
+        const maxResults = 50; // Ajuste conforme necessário
+        const meuMapaTodosProjetos = new Map<string, QuantidadePRojetosArea>();
 
-    getProjectsByArea() {
-        const data = [
-        { area: 'Desenvolvimento', quantidade: 10 },
-        { area: 'QA', quantidade: 6 },
-        { area: 'Infraestrutura', quantidade: 4 },
-        { area: 'Produto', quantidade: 8 },
-        ];
-        return of(data).pipe(delay(1000)); // Simula um delay de API
+        const processarIssues = (issues: any[]) => {
+            console.log('Issues recebidas:', issues.length);
+            for (const issue of issues) {
+            const area = issue?.fields?.issuetype?.name ?? 'Unknown';
+            const status = issue?.fields?.status?.name ?? 'Unknown';
+            if (meuMapaTodosProjetos.has(area)) {
+                meuMapaTodosProjetos.get(area)!.quantidade += 1;
+            } else {
+                meuMapaTodosProjetos.set(area, {
+                area,
+                quantidade: 1,
+                status
+                });
+            }
+            }
+        };
+
+        // Função recursiva para buscar todas as páginas
+        const carregarPaginas = (nextPageToken?: string): Observable<void> => {
+            const body: any = {
+            jql: jqlConsulta,
+            fields: ['status', 'customfield_10042', 'assignee', 'reporter', 'issuetype', 'summary'],
+            maxResults
+            };
+            if (nextPageToken) {
+            body.nextPageToken = nextPageToken;
+            }
+
+            return this.http.post<any>(`${this.baseUrl}?endpoint=search/jql`, body).pipe(
+            switchMap(result => {
+                const issues = result.issues || [];
+                processarIssues(issues);
+
+                if (result.nextPageToken) {
+                return carregarPaginas(result.nextPageToken); // continua para a próxima página
+                } else {
+                return of(void 0); // última página, finaliza
+                }
+            })
+            );
+        };
+
+        // Retorna Observable final com o array ordenado
+        return carregarPaginas().pipe(
+            map(() => Array.from(meuMapaTodosProjetos.values()).sort(
+            (a, b) => b.quantidade - a.quantidade
+            )),
+            catchError(error => {
+            console.error('Erro ao carregar dados do Jira:', error);
+            return of([]);
+            })
+        );
     }
+
+
+
     /**
      * Retorna pontos planejados e concluídos por reporter
      */
