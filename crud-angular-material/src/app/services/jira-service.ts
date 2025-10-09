@@ -25,34 +25,18 @@ export class JiraService {
 
     constructor(private http: HttpClient) {}
 
-    getTodosProjetosEmBackLog(jqlConsulta: string): Observable<QuantidadePRojetosArea[]> {
+    getTodosProjetosEmBackLog(jqlConsulta: string): Observable<any[]> {
         const maxResults = 50; // Ajuste conforme necessário
-        const meuMapaTodosProjetos = new Map<string, QuantidadePRojetosArea>();
+        let todasIssues: any[] = [];
 
-        const processarIssues = (issues: any[]) => {
-            console.log('Issues recebidas:', issues.length);
-            for (const issue of issues) {
-            const area = issue?.fields?.issuetype?.name ?? 'Unknown';
-            const status = issue?.fields?.status?.name ?? 'Unknown';
-            if (meuMapaTodosProjetos.has(area)) {
-                meuMapaTodosProjetos.get(area)!.quantidade += 1;
-            } else {
-                meuMapaTodosProjetos.set(area, {
-                area,
-                quantidade: 1,
-                status
-                });
-            }
-            }
-        };
-
-        // Função recursiva para buscar todas as páginas
+        // Função recursiva para buscar todas as páginas do Jira
         const carregarPaginas = (nextPageToken?: string): Observable<void> => {
             const body: any = {
             jql: jqlConsulta,
             fields: ['status', 'customfield_10042', 'assignee', 'reporter', 'issuetype', 'summary'],
             maxResults
             };
+
             if (nextPageToken) {
             body.nextPageToken = nextPageToken;
             }
@@ -60,10 +44,11 @@ export class JiraService {
             return this.http.post<any>(`${this.baseUrl}?endpoint=search/jql`, body).pipe(
             switchMap(result => {
                 const issues = result.issues || [];
-                processarIssues(issues);
+                todasIssues = [...todasIssues, ...issues]; // acumula todas as issues
 
                 if (result.nextPageToken) {
-                return carregarPaginas(result.nextPageToken); // continua para a próxima página
+                // Continua buscando até acabar as páginas
+                return carregarPaginas(result.nextPageToken);
                 } else {
                 return of(void 0); // última página, finaliza
                 }
@@ -71,18 +56,15 @@ export class JiraService {
             );
         };
 
-        // Retorna Observable final com o array ordenado
+        // Após buscar todas as páginas, retorna o array completo de issues
         return carregarPaginas().pipe(
-            map(() => Array.from(meuMapaTodosProjetos.values()).sort(
-            (a, b) => b.quantidade - a.quantidade
-            )),
+            map(() => todasIssues),
             catchError(error => {
             console.error('Erro ao carregar dados do Jira:', error);
             return of([]);
             })
         );
     }
-
 
 
     /**
