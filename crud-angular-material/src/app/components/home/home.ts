@@ -7,11 +7,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 import { MatProgressBar } from '@angular/material/progress-bar';
-// 🔹 Importa o plugin para mostrar rótulos (quantidades)
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-Chart.register(...registerables, ChartDataLabels); // 🔹 registra o plugin
-
+Chart.register(...registerables, ChartDataLabels);
 @Component({
     selector: 'app-home',
     standalone: true,
