@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,34 +10,34 @@ import { MatListModule } from '@angular/material/list';
 import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
-
 interface MenuItem {
     label: string;
     icon: string;
     route?: string;
     children?: MenuItem[];
 }
-
 @Component({
-    selector: 'app-root',
-    imports: [
-        CommonModule,
-        MatExpansionModule,
-        MatMenuModule,
-        MatListModule,
-        MatSidenavModule,
-        FormsModule,
-        MatButtonModule,
-        RouterOutlet,
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDividerModule,
-    ],
-    templateUrl: './app.html',
-    styleUrl: './app.scss',
+  selector: 'app-main-layout',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+    MatMenuModule,
+    MatListModule,
+    MatSidenavModule,
+    FormsModule,
+    MatButtonModule,
+    RouterOutlet,
+    RouterLink,
+    MatToolbarModule,
+    MatIconModule,
+    MatDividerModule
+  ],
+  templateUrl: './main-layout.html',
+  styleUrls: ['./main-layout.scss'],
 })
-export class App {
+
+export class MainLayout {
     menuItems: MenuItem[] = [];
 
     ngOnInit(): void {

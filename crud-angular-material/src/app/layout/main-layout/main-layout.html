@@ -1,0 +1,59 @@
+<!-- Toolbar fixa -->
+<mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="toolbar-title home-link" routerLink="/Home" routerLinkActive="active-link">Página inicial</span>
+
+    <span class="spacer"></span>
+
+    <!-- Menu no topo -->
+    <button mat-icon-button [matMenuTriggerFor]="perfilMenu">
+        <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #perfilMenu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>settings</mat-icon>
+            Configurações
+        </button>
+        <button mat-menu-item>
+            <mat-icon>logout</mat-icon>
+            Sair
+        </button>
+    </mat-menu>
+</mat-toolbar>
+
+<!-- Container que respeita altura do toolbar -->
+<mat-drawer-container autosize class="app-container">
+    <!-- Menu lateral -->
+    <mat-drawer #drawer mode="side">
+        <mat-nav-list class="pd-00">
+            <ng-container *ngFor="let item of menuItems">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon>{{ item.icon }}</mat-icon>
+                            <span>{{ item.label }}</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <ng-container *ngFor="let child of item.children">
+                        <a mat-list-item [routerLink]="child.route" routerLinkActive="active-link">
+                            <mat-panel-title>
+                                <mat-icon class="mr-5">{{ child.icon }}</mat-icon>
+                                <span>{{ child.label }}</span>
+                            </mat-panel-title>
+                        </a>
+                    </ng-container>
+                </mat-expansion-panel>
+            </ng-container>
+        </mat-nav-list>
+    </mat-drawer>
+
+    <!-- Conteúdo principal -->
+    <mat-drawer-content>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
