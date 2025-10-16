@@ -1,45 +1,54 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { OAuthService, AuthConfig } from 'angular-oauth2-oidc';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from '../auth.config';
-import { Router} from '@angular/router'
+import { Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthGoogleServices {
-    private oauthService = inject(OAuthService);
-    private router = inject(Router);
-    public userProfile = signal<any>(null);
-    public isAuthenticated = signal<boolean>(false);
+  private oauthService = inject(OAuthService);
+  private router = inject(Router);
 
-    profile = signal<any>(null);
+  public profile = signal<any>(null);
+  public isAuthenticated = signal<boolean>(false);
 
+  constructor() {
+    // Configura OAuth
+    this.oauthService.configure(authConfig);
+    this.oauthService.setupAutomaticSilentRefresh();
+  }
 
-    constructor() {
-        this.initConfiguration();
+  // Inicia login garantindo discovery document
+  login() {
+    this.oauthService.loadDiscoveryDocument().then(() => {
+      this.oauthService.initLoginFlow();
+    }).catch(err => {
+      console.error('Erro ao carregar discovery document:', err);
+    });
+  }
+
+  logout() {
+    try { this.oauthService.revokeTokenAndLogout(); } catch {
+      try { this.oauthService.logOut(); } catch {}
     }
+    this.profile.set(null);
+    this.isAuthenticated.set(false);
+    this.router.navigate(['/login']);
+  }
 
-    initConfiguration() {
-        this.oauthService.configure(authConfig);
-        this.oauthService.setupAutomaticSilentRefresh();
-        this.oauthService.loadDiscoveryDocumentAndTryLogin().then(() => {
-            if (this.oauthService.hasValidAccessToken()) {
-                this.profile.set(this.oauthService.getIdentityClaims());
-            }
-        });
-    }
+  getLoggedProfile() {
+    return this.profile();
+  }
 
-    login() {
-        this.oauthService.initLoginFlow();
-    }
-    logout() {
-        this.oauthService.revokeTokenAndLogout();
-        this.oauthService.logOut();
-        this.profile.set(null);
-        this.router.navigate(['']);
-    }
+  setAuthenticated() {
+    const valid = this.oauthService.hasValidAccessToken() || this.oauthService.hasValidIdToken();
+    this.isAuthenticated.set(valid);
+    if (valid) this.profile.set(this.oauthService.getIdentityClaims());
+  }
 
-    getLoggedProfile(){
-        return this.profile();
-    }
+  checkLoggedIn(): boolean {
+    const valid = this.oauthService.hasValidAccessToken() || this.oauthService.hasValidIdToken();
+    this.isAuthenticated.set(valid);
+    if (valid) this.profile.set(this.oauthService.getIdentityClaims());
+    return valid;
+  }
 }

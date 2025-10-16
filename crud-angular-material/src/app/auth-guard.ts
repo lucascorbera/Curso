@@ -1,17 +1,32 @@
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { AuthGoogleServices } from './services/auth-google-services';
-import type { IProfileModel } from './Models/profile-model/profile-model-module';
+import { Router } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
-    const authService = inject(AuthGoogleServices);
-    const router = inject(Router);
+  const authService = inject(AuthGoogleServices);
+  const router = inject(Router);
 
-    const LoggedProfile: IProfileModel = authService.getLoggedProfile();
-    if(LoggedProfile){
-        return true;
-    }else{
-        router.navigate(['']);
-        return false;
-    }
+  const logged = authService.checkLoggedIn();
+
+  if (!logged) {
+    // Redireciona para login se não autenticado
+    router.navigate(['/login']);
+  }
+
+  return logged;
+};
+
+export const redirectIfAuthenticated: CanActivateFn = (route, state) => {
+  const authService = inject(AuthGoogleServices);
+  const router = inject(Router);
+
+  const logged = authService.checkLoggedIn();
+
+  if (logged) {
+    // Redireciona para home se já estiver autenticado
+    router.navigate(['/home']);
+  }
+
+  return !logged;
 };
