@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, delay, forkJoin, map, of ,switchMap} from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface PersonPoints {
     accountId: string;
@@ -21,7 +22,7 @@ export interface QuantidadePRojetosArea{
 
 @Injectable({ providedIn: 'root' })
 export class JiraService {
-    private baseUrl = 'http://localhost:3000/jira';
+    private baseUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) {}
 

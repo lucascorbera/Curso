@@ -33,12 +33,8 @@
         "@angular/material": "^20.2.1",
         "@angular/platform-browser": "^20.1.0",
         "@angular/router": "^20.1.0",
-<<<<<<< HEAD
-        "chart.js": "^4.5.1",
-=======
         "angular-oauth2-oidc": "^20.0.2",
         "chart.js": "^4.5.0",
->>>>>>> e5272be5432c89b6055391fd4a433d07be3a7dc1
         "chartjs-plugin-datalabels": "^2.2.0",
         "ng2-charts": "^8.0.0",
         "ngx-mask": "^20.0.3",
