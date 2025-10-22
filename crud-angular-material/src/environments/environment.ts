@@ -1,3 +1,4 @@
 export const environment = {
-    apiUrl: 'http://localhost:3000/jira'
+    apiUrl: 'http://localhost:5151/api/jira',
+    clienteIdGoole: '617399892327-lrchq2gntr5a9o7b9vhvr22qeagbmjk4.apps.googleusercontent.com',
 };
