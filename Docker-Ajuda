@@ -1,0 +1,47 @@
+Explicação
+
+Build Stage
+
+Usa a imagem dotnet/sdk:8.0 → inclui SDK para compilar.
+
+Restaura dependências com dotnet restore.
+
+Publica em Release para a pasta /app/publish.
+
+Runtime Stage
+
+Usa dotnet/aspnet:8.0 → apenas o runtime (imagem muito menor que o SDK).
+
+Copia somente os arquivos compilados da etapa de build.
+
+Expõe a porta 5151 (padrão da sua API).
+
+Define o comando para rodar a aplicação.
+
+🔹 Comandos para testar
+
+Construir a imagem Docker:
+
+docker build -t jiraproxyapi:latest .
+
+
+Rodar a aplicação em container:
+
+docker run -d -p 5151:5151 --name jiraproxy jiraproxyapi:latest
+
+
+Testar no navegador ou no Angular:
+
+http://localhost:5151/api/jira?endpoint=search/jql
+
+🔹 Dicas de produção
+
+Armazene segredos (Jira API token, email) usando variáveis de ambiente no container:
+
+docker run -d -p 5151:5151 \
+  -e Jira__ApiToken="SEU_TOKEN" \
+  -e Jira__Email="seuemail@empresa.com" \
+  jiraproxyapi:latest
+
+
+Para HTTPS, você pode adicionar um reverse proxy como Nginx ou Traefik em frente ao container.

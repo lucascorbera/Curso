@@ -12,7 +12,7 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("fb0e641c-72d8-4522-ba40-361883c0b576")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("JiraProxyApi")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d0ffc1d1c2538daa75ad766fc893933672e36595")]
 [assembly: System.Reflection.AssemblyProductAttribute("JiraProxyApi")]
