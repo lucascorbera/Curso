@@ -1,3 +1,15 @@
+comando para buildar dockfile
+docker build --tag servidor-node-jira .
+
+para rodar o docker 
+docker run -p 3000:3000 --name servidor-node-jira-container -d servidor-node-jira
+
+deletar contenier
+docker container rm crud-jira-app-container
+
+deletar a imagem dockfile 
+docker image rm crud-jira-app
+
 Explicação
 
 Build Stage

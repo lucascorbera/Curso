@@ -32,3 +32,8 @@ C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\obj\Debug\n
 C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.pdb
 C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.genruntimeconfig.cache
 C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\obj\Debug\net8.0\ref\JiraProxyApi.dll
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\net8.0\publish\web.config
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\net8.0\publish\JiraProxyApi.deps.json
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\net8.0\publish\JiraProxyApi.runtimeconfig.json

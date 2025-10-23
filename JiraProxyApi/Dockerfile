@@ -21,8 +21,11 @@ WORKDIR /app
 # Copia os arquivos publicados da etapa de build
 COPY --from=build /app/publish ./
 
-# Porta padrão da Web API
+# Expõe a porta que o ASP.NET vai escutar
 EXPOSE 5151
+
+# Variável de ambiente para ASP.NET escutar na porta correta em todas as interfaces
+ENV ASPNETCORE_URLS=http://+:5151
 
 # Comando para rodar a aplicação
 ENTRYPOINT ["dotnet", "JiraProxyApi.dll"]
