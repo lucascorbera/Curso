@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Text;
-
+using System.Text.Json;
 public class JiraService : IJiraService
 {
     private readonly IHttpClientFactory _httpClientFactory;
@@ -39,5 +39,62 @@ public class JiraService : IJiraService
 
         var responseBody = await response.Content.ReadAsStringAsync();
         return ((int)response.StatusCode, responseBody);
+    }
+
+    public async Task<List<JsonElement>> GetTodosProjetosEmBackLogAsync(string jqlConsulta)
+    {
+        const int maxResults = 50;
+        var todasIssues = new List<JsonElement>();
+        string? nextPageToken = null;
+
+        do
+        {
+            var body = new
+            {
+                jql = jqlConsulta,
+                fields = new[] { "status", "customfield_10042", "assignee", "reporter", "issuetype", "summary" },
+                maxResults,
+                nextPageToken
+            };
+
+            var jsonBody = JsonSerializer.Serialize(body);
+
+            // Chamada ao método existente que faz o POST
+            var (statusCode, content) = await PostToJiraAsync("search/jql", jsonBody);
+
+            if (statusCode != 200)
+            {
+                Console.WriteLine($"Erro ao consultar o Jira (Status {statusCode}): {content}");
+                break;
+            }
+
+            using var document = JsonDocument.Parse(content);
+            var root = document.RootElement;
+
+            // Coleta todas as issues retornadas
+            if (root.TryGetProperty("issues", out var issuesElement) && issuesElement.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var issue in issuesElement.EnumerateArray())
+                {
+                    string issueJson = issue.GetRawText();
+                    var issueClone = JsonDocument.Parse(issueJson).RootElement.Clone();
+                    todasIssues.Add(issueClone);
+                }
+            }
+
+            // Verifica se há próxima página
+            if (root.TryGetProperty("nextPageToken", out var tokenElement) &&
+                tokenElement.ValueKind == JsonValueKind.String)
+            {
+                nextPageToken = tokenElement.GetString();
+            }
+            else
+            {
+                nextPageToken = null;
+            }
+
+        } while (!string.IsNullOrEmpty(nextPageToken));
+
+        return todasIssues;
     }
 }

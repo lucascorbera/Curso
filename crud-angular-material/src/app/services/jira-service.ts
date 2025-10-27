@@ -38,6 +38,8 @@ export class JiraService {
             maxResults
             };
 
+            console.log('Corpo da requisição:', body);
+
             if (nextPageToken) {
             body.nextPageToken = nextPageToken;
             }

@@ -482,24 +482,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lusco\\.nuget\\packages\\": {}
+    "C:\\Users\\tbf00978\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lusco\\OneDrive\\Área de Trabalho\\Lucas\\Angular\\JiraProxyApi\\JiraProxyApi.csproj",
+      "projectUniqueName": "C:\\Users\\tbf00978\\Desktop\\Estudo\\Curso\\JiraProxyApi\\JiraProxyApi.csproj",
       "projectName": "JiraProxyApi",
-      "projectPath": "C:\\Users\\lusco\\OneDrive\\Área de Trabalho\\Lucas\\Angular\\JiraProxyApi\\JiraProxyApi.csproj",
-      "packagesPath": "C:\\Users\\lusco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lusco\\OneDrive\\Área de Trabalho\\Lucas\\Angular\\JiraProxyApi\\obj\\",
+      "projectPath": "C:\\Users\\tbf00978\\Desktop\\Estudo\\Curso\\JiraProxyApi\\JiraProxyApi.csproj",
+      "packagesPath": "C:\\Users\\tbf00978\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tbf00978\\Desktop\\Estudo\\Curso\\JiraProxyApi\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\lusco\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\tbf00978\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -517,7 +524,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -551,7 +559,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.413/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

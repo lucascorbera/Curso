@@ -37,3 +37,44 @@ C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\n
 C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\net8.0\publish\appsettings.json
 C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\net8.0\publish\JiraProxyApi.deps.json
 C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\bin\Debug\net8.0\publish\JiraProxyApi.runtimeconfig.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\publish\web.config
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\appsettings.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\publish\JiraProxyApi.deps.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\publish\JiraProxyApi.runtimeconfig.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\JiraProxyApi.staticwebassets.endpoints.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\JiraProxyApi.exe
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\JiraProxyApi.deps.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\JiraProxyApi.runtimeconfig.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\JiraProxyApi.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\JiraProxyApi.pdb
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.csproj.AssemblyReference.cache
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.AssemblyInfoInputs.cache
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.AssemblyInfo.cs
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.csproj.CoreCompileInputs.cache
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.sourcelink.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\scopedcss\bundle\JiraProxyApi.styles.css
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\staticwebassets.build.json.cache
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProx.56BC1425.Up2Date
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\refint\JiraProxyApi.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.pdb
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\JiraProxyApi.genruntimeconfig.cache
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\obj\Debug\net8.0\ref\JiraProxyApi.dll
