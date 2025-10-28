@@ -1,12 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "bVNloLKB/sA=",
+  "dgSpecHash": "9sulYyHjIpI=",
   "success": true,
   "projectFilePath": "C:\\Users\\tbf00978\\Desktop\\Estudo\\Curso\\JiraProxyApi\\JiraProxyApi.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\tbf00978\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.19\\microsoft.aspnetcore.openapi.8.0.19.nupkg.sha512",
     "C:\\Users\\tbf00978\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
-    "C:\\Users\\tbf00978\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.21\\microsoft.net.illink.tasks.8.0.21.nupkg.sha512",
     "C:\\Users\\tbf00978\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
     "C:\\Users\\tbf00978\\.nuget\\packages\\swashbuckle.aspnetcore\\6.6.2\\swashbuckle.aspnetcore.6.6.2.nupkg.sha512",
     "C:\\Users\\tbf00978\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.6.2\\swashbuckle.aspnetcore.swagger.6.6.2.nupkg.sha512",
