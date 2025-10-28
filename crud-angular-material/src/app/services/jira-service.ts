@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, delay, forkJoin, map, of ,switchMap} from 'rxjs';
+import { Observable, catchError, delay, forkJoin, map, of, switchMap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface PersonPoints {
@@ -14,7 +14,7 @@ export interface PersonPoints {
     QuantidadeissuesConcluidos?: number;
 }
 
-export interface QuantidadePRojetosArea{
+export interface QuantidadePRojetosArea {
     area: string;
     quantidade: number;
     status: string;
@@ -33,42 +33,46 @@ export class JiraService {
         // Função recursiva para buscar todas as páginas do Jira
         const carregarPaginas = (nextPageToken?: string): Observable<void> => {
             const body: any = {
-            jql: jqlConsulta,
-            fields: ['status', 'customfield_10042', 'assignee', 'reporter', 'issuetype', 'summary'],
-            maxResults
+                jql: jqlConsulta,
+                fields: [
+                    'status',
+                    'customfield_10042',
+                    'assignee',
+                    'reporter',
+                    'issuetype',
+                    'summary',
+                ],
+                maxResults,
             };
 
-            console.log('Corpo da requisição:', body);
-
             if (nextPageToken) {
-            body.nextPageToken = nextPageToken;
+                body.nextPageToken = nextPageToken;
             }
 
             return this.http.post<any>(`${this.baseUrl}?endpoint=search/jql`, body).pipe(
-            switchMap(result => {
-                const issues = result.issues || [];
-                todasIssues = [...todasIssues, ...issues]; // acumula todas as issues
+                switchMap((result) => {
+                    const issues = result.issues || [];
+                    todasIssues = [...todasIssues, ...issues]; // acumula todas as issues
 
-                if (result.nextPageToken) {
-                // Continua buscando até acabar as páginas
-                return carregarPaginas(result.nextPageToken);
-                } else {
-                return of(void 0); // última página, finaliza
-                }
-            })
+                    if (result.nextPageToken) {
+                        // Continua buscando até acabar as páginas
+                        return carregarPaginas(result.nextPageToken);
+                    } else {
+                        return of(void 0); // última página, finaliza
+                    }
+                })
             );
         };
 
         // Após buscar todas as páginas, retorna o array completo de issues
         return carregarPaginas().pipe(
             map(() => todasIssues),
-            catchError(error => {
-            console.error('Erro ao carregar dados do Jira:', error);
-            return of([]);
+            catchError((error) => {
+                console.error('Erro ao carregar dados do Jira:', error);
+                return of([]);
             })
         );
     }
-
 
     /**
      * Retorna pontos planejados e concluídos por reporter

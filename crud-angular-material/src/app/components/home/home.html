@@ -3,26 +3,57 @@
 <div *ngIf="error" class="error">{{ error }}</div>
 
 <div class="dashboard-container mat-elevation-z2" *ngIf="!loading && !error">
-  <mat-toolbar color="primary" class="toolbar">
-    <span>Dashboard de Projetos - Jira</span>
-  </mat-toolbar>
+    <mat-toolbar color="primary" class="toolbar">
+        <span>Dashboard de Projetos - Jira</span>
+    </mat-toolbar>
 
-  <div class="dashboard-content">
-    <!-- CARD TOTAL DE PROJETOS -->
-    <mat-card class="summary-card full-width">
-      <mat-card-title>Total de Projetos</mat-card-title>
-      <h2>{{ totalProjetos }}</h2>
-    </mat-card>
+    <div class="dashboard-content">
+        <!-- CARD TOTAL DE PROJETOS -->
+        <mat-card class="summary-card full-width">
+            <mat-card-title>Total de Projetos</mat-card-title>
+            <h2>{{ totalProjetos }}</h2>
+        </mat-card>
 
-    <!-- CARD DO GRÁFICO -->
-    <mat-card class="chart-card">
-      <canvas
-        baseChart
-        [data]="chartData"
-        [options]="chartOptions"
-        chartType="bar">
-      </canvas>
-    </mat-card>
-  </div>
+        <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title> Total de Projetos </mat-panel-title>
+                    <mat-panel-description>
+                        Visualize o total de projetos por área em gráficos.
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <!-- Container flex para os três cards -->
+                <div class="charts-container">
+                    <mat-card class="chart-card">
+                        <canvas
+                            baseChart
+                            [data]="chartDataPie"
+                            [options]="chartOptionsPie"
+                            [type]="'pie'"
+                        ></canvas>
+                    </mat-card>
+
+                    <mat-card class="chart-card">
+                        <canvas
+                            baseChart
+                            [data]="chartData"
+                            [options]="chartOptions"
+                            chartType="bar"
+                        ></canvas>
+                    </mat-card>
+
+                    <mat-card class="chart-card">
+                        <canvas
+                            baseChart
+                            [data]="chartData"
+                            [options]="chartOptions"
+                            chartType="bar"
+                        ></canvas>
+                    </mat-card>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
 </div>
 <!-- FIM DO CÓDIGO -->
