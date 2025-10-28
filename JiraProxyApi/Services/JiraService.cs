@@ -41,7 +41,7 @@ public class JiraService : IJiraService
         return ((int)response.StatusCode, responseBody);
     }
 
-    public async Task<List<JsonElement>> GetTodosProjetosEmBackLogAsync(string jqlConsulta)
+    public async Task<List<JsonElement>> GetTodosProjetosEmBackLogAsync(string jqlConsulta, IEnumerable<string> fields)
     {
         const int maxResults = 50;
         var todasIssues = new List<JsonElement>();
@@ -52,10 +52,13 @@ public class JiraService : IJiraService
             var body = new
             {
                 jql = jqlConsulta,
-                fields = new[] { "status", "customfield_10042", "assignee", "reporter", "issuetype", "summary" },
+                fields = fields?.ToArray() ?? Array.Empty<string>(),
                 maxResults,
                 nextPageToken
             };
+
+            Console.WriteLine($"Consultando Jira com JQL: {jqlConsulta}");
+            Console.WriteLine($"Campos solicitados: {string.Join(", ", fields ?? Array.Empty<string>())}");
 
             var jsonBody = JsonSerializer.Serialize(body);
 
@@ -97,4 +100,5 @@ public class JiraService : IJiraService
 
         return todasIssues;
     }
+
 }

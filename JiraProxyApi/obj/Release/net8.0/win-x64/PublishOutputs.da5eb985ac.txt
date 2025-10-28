@@ -1,0 +1,17 @@
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\JiraProxyApi.exe
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\publish\web.config
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\appsettings.Development.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\appsettings.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\publish\appsettings.Development.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\publish\appsettings.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\publish\JiraProxyApi.deps.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\publish\JiraProxyApi.runtimeconfig.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\JiraProxyApi.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\JiraProxyApi.deps.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\JiraProxyApi.runtimeconfig.json
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\JiraProxyApi.pdb
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\Microsoft.OpenApi.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\tbf00978\Desktop\Estudo\Curso\JiraProxyApi\bin\Release\net8.0\win-x64\publish\Swashbuckle.AspNetCore.SwaggerUI.dll

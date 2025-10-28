@@ -29,7 +29,7 @@ public class JiraProxyController : ControllerBase
     /// <summary>
     /// Novo endpoint que busca todas as páginas de um endpoint paginado do Jira.
     /// </summary>
-    
+/*
     [HttpGet("backlog")]
     public async Task<IActionResult> GetBacklog([FromQuery] string jql)
     {
@@ -43,4 +43,26 @@ public class JiraProxyController : ControllerBase
             return StatusCode(500, new { message = "Erro ao buscar backlog do Jira", error = ex.Message });
         }
     }
+    */
+    public class JiraBacklogRequest
+    {
+        public string Jql { get; set; } = string.Empty;
+        public List<string>? Fields { get; set; }
+    }
+
+    [HttpPost("backlogPost")]
+    public async Task<IActionResult> PostBacklog([FromBody] JiraBacklogRequest request)
+    {
+        try
+        {
+            var fields = request.Fields ?? new List<string>();
+            var issues = await _jiraService.GetTodosProjetosEmBackLogAsync(request.Jql, fields);
+            return Ok(issues);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Erro ao buscar backlog do Jira", error = ex.Message });
+        }
+    }
+
 }
