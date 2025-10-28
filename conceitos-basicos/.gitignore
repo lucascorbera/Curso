@@ -1,17 +1,18 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# Diretórios de build (.NET)
+**/bin/
+**/obj/
+**/publish/
 
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
+# Arquivos de configuração locais (.NET)
+**/appsettings.json
+**/appsettings.Development.json
 
-# Node
-/node_modules
-npm-debug.log
-yarn-error.log
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log*
 
-# IDEs and editors
+# IDEs e editores
 .idea/
 .project
 .classpath
@@ -21,22 +22,22 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
-.vscode/*
+.vscode/
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
+.history/
 
-# Miscellaneous
-/.angular/cache
+# Angular e outros caches
+.angular/cache/
 .sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
+connect.lock
+coverage/
+libpeerconnection.log
 testem.log
-/typings
+typings/
 
-# System files
+# Arquivos de sistema
 .DS_Store
 Thumbs.db
