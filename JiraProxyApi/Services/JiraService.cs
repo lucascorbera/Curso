@@ -7,6 +7,7 @@ public class JiraService : IJiraService
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly JiraOptions _options;
 
+
     public JiraService(IHttpClientFactory httpClientFactory, IOptions<JiraOptions> options)
     {
         _httpClientFactory = httpClientFactory;

@@ -1,0 +1,12 @@
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\JiraProxyApi.exe
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\appsettings.Development.json
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\appsettings.json
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\JiraProxyApi.dll
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\JiraProxyApi.deps.json
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\JiraProxyApi.runtimeconfig.json
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\JiraProxyApi.pdb
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\Microsoft.OpenApi.dll
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\lusco\OneDrive\Área de Trabalho\Lucas\Angular\JiraProxyApi\publish\Swashbuckle.AspNetCore.SwaggerUI.dll

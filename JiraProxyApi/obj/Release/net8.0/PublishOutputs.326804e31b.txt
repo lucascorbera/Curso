@@ -1,0 +1,17 @@
+C:\app\publish\JiraProxyApi.exe
+C:\app\publish\publish\web.config
+C:\app\publish\appsettings.Development.json
+C:\app\publish\appsettings.json
+C:\app\publish\publish\appsettings.Development.json
+C:\app\publish\publish\appsettings.json
+C:\app\publish\publish\JiraProxyApi.deps.json
+C:\app\publish\publish\JiraProxyApi.runtimeconfig.json
+C:\app\publish\JiraProxyApi.dll
+C:\app\publish\JiraProxyApi.deps.json
+C:\app\publish\JiraProxyApi.runtimeconfig.json
+C:\app\publish\JiraProxyApi.pdb
+C:\app\publish\Microsoft.AspNetCore.OpenApi.dll
+C:\app\publish\Microsoft.OpenApi.dll
+C:\app\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\app\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\app\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
