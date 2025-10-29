@@ -50,6 +50,47 @@ public class JiraProxyController : ControllerBase
         public List<string>? Fields { get; set; }
     }
 
+
+/*
+{
+  "jql": "project = BDP ORDER BY created DESC",
+  "fields": [
+    "summary",
+    "description",
+    "status",
+    "issuetype",
+    "assignee",
+    "reporter",
+    "security",
+    "created",
+    "updated",
+    "priority",
+    "customfield_10070",
+    "customfield_10071",
+    "customfield_10043",
+    "customfield_10044",
+    "customfield_10051",
+    "customfield_10049",
+    "customfield_10045",
+    "customfield_10046",
+    "customfield_10075",
+    "customfield_10060",
+    "customfield_10047",
+    "customfield_10039",
+    "customfield_10038"
+  ]
+}
+*/
+
+    /// <summary>
+    /// Busca todas as issues do backlog no Jira (com paginação automática).
+    /// </summary>
+    /// <param name="jql">A consulta JQL para filtrar as issues.</param>
+    /// <param name="fields">Os campos a serem retornados nas issues.</param>
+    /// <returns>Uma lista de issues que correspondem à consulta JQL.</returns>
+    /// <remarks>
+    /// Este endpoint suporta paginação automática. Ele continuará buscando novas páginas de resultados até que não haja mais resultados.
+    /// </remarks>
     [HttpPost("backlogPost")]
     public async Task<IActionResult> PostBacklog([FromBody] JiraBacklogRequest request)
     {

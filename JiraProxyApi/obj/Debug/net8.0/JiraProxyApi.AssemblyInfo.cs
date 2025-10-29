@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JiraProxyApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c54a3b52d945af265d6b112c9788847ae02ff454")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e14c5ff9e48bfaccd5c795a3cdd94c931a6aa1a")]
 [assembly: System.Reflection.AssemblyProductAttribute("JiraProxyApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JiraProxyApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

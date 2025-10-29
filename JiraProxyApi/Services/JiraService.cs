@@ -41,7 +41,7 @@ public class JiraService : IJiraService
         return ((int)response.StatusCode, responseBody);
     }
 
-    public async Task<List<JsonElement>> GetTodosProjetosEmBackLogAsync(string jqlConsulta, IEnumerable<string> fields)
+    public async Task<JiraIssuesResult> GetTodosProjetosEmBackLogAsync(string jqlConsulta, IEnumerable<string> fields)
     {
         const int maxResults = 50;
         var todasIssues = new List<JsonElement>();
@@ -62,7 +62,6 @@ public class JiraService : IJiraService
 
             var jsonBody = JsonSerializer.Serialize(body);
 
-            // Chamada ao método existente que faz o POST
             var (statusCode, content) = await PostToJiraAsync("search/jql", jsonBody);
 
             if (statusCode != 200)
@@ -98,7 +97,11 @@ public class JiraService : IJiraService
 
         } while (!string.IsNullOrEmpty(nextPageToken));
 
-        return todasIssues;
+        // Retorna um JSON com a contagem e as issues
+        return new JiraIssuesResult
+        {
+            TotalCount = todasIssues.Count,
+            Issues = todasIssues
+        };
     }
-
 }

@@ -12,7 +12,7 @@ import {
   toFont,
   toPadding,
   valueOrDefault
-} from "./chunk-DVX6NZWX.js";
+} from "./chunk-PAVXFXEV.js";
 import "./chunk-WDMUDEB6.js";
 
 // node_modules/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.esm.js

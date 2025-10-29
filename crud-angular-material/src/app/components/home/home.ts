@@ -118,9 +118,7 @@ export class Home implements OnInit {
     constructor(private jiraService: JiraService) {}
 
     ngOnInit(): void {
-        this.carregaProjetosJira(
-            `project = "Backlog Geral" and status IN ("To Do", DOING, WAITING, done) ORDER BY created DESC`
-        );
+        this.carregaProjetosJira(`project = "Backlog Geral"  ORDER BY created DESC`);
     }
 
     carregaProjetosJira(jqlProjetosBackLog: string): void {
